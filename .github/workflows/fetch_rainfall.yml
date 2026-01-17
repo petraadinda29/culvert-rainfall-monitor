@@ -1,5 +1,8 @@
 name: Fetch Rainfall Data
 
+permissions: 
+  contents: write
+
 on:
   schedule:
     - cron: "* * * * *"   # tiap 1 menit
