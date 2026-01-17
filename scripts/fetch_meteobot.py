@@ -15,7 +15,7 @@ def fetch_meteobot(stations_df):
         station_name = row["station"]
 
         # Meteobot pakai ID numerik
-        if not station_id.isdigit():
+        if not station_id or station_id.lower() == "nan":
             continue
 
         try:
