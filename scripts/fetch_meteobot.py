@@ -7,14 +7,14 @@ def fetch_meteobot(stations_df):
     rows = []
     now = datetime.utcnow()
 
-    start_date = (now - timedelta(minutes=1)).strftime("%Y-%m-%d")
+    start_date = (now - timedelta(days=1)).strftime("%Y-%m-%d")
     end_date = now.strftime("%Y-%m-%d")
 
     for _, row in stations_df.iterrows():
-        station_id = row["id"]
+        station_id = str(row["id"]).strip()
         station_name = row["station"]
 
-        # Meteobot → ID numerik panjang
+        # Meteobot pakai ID numerik
         if not station_id.isdigit():
             continue
 
@@ -26,14 +26,20 @@ def fetch_meteobot(stations_df):
                 f"&endTime={end_date}%2023:59"
             )
 
-            resp = requests.get(url, timeout=30)
-            data = resp.json()
+            print(f"[METEOBOT] Fetching {station_name} ({station_id})")
 
-            if not data:
+            resp = requests.get(url, timeout=30)
+            resp.raise_for_status()
+
+            json_resp = resp.json()
+            records = json_resp.get("data", [])
+
+            if not records:
+                print(f"[METEOBOT] No data for {station_name}")
                 continue
 
-            last = data[-1]
-            rainfall = last.get("rainfall")
+            last = records[-1]
+            rainfall = last.get("rainfall", 0)
 
             rows.append({
                 "timestamp": now.isoformat(),
