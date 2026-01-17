@@ -1,0 +1,4 @@
+timestamp,station,rainfall_mm,source
+2026-01-17T07:35:40.540489,IBALAN17,0.0,weather
+2026-01-17T07:35:40.540489,ITABAL8,0.0,weather
+2026-01-17T07:35:40.540489,ITABAL9,0.99,weather
