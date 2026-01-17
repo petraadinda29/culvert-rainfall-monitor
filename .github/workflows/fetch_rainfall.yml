@@ -12,7 +12,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        
+      - name: Debug root
+        run: |
+          pwd
+          ls -la
+          
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -31,8 +36,9 @@ jobs:
       
       - name: Debug rainfall output
         run: |
-          ls data
-          ls data/rainfall
+          ls -la
+          ls -la data || true
+          ls -la data/rainfall || true
 
       - name: Commit and push data
         run: |
