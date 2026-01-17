@@ -26,7 +26,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # MAIN
 # =========================
 def main():
-    stations = pd.read_csv(STATIONS_FILE)
+    stations = pd.read_csv(STATIONS_FILE, dtype={"id": str})
     stations = stations[stations["active"] == 1]
 
     all_rows = []
