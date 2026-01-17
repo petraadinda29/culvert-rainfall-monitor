@@ -6,7 +6,7 @@ from datetime import datetime
 # =========================
 # PATH FIX (PENTING)
 # =========================
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.getcwd()
 sys.path.append(os.path.join(BASE_DIR, "scripts"))
 
 from fetch_weather import fetch_weather
