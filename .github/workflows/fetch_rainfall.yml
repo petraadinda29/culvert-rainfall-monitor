@@ -35,7 +35,7 @@ jobs:
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
-          python .github/workflows/scripts/fetch_rainfall.py
+          python scripts/fetch_rainfall.py
       
       - name: Debug rainfall output
         run: |
