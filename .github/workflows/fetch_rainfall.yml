@@ -28,11 +28,17 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
           python .github/workflows/scripts/fetch_rainfall.py
+      
+      - name: Debug rainfall output
+        run: |
+          ls data
+          ls data/rainfall
 
       - name: Commit and push data
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add data/rainfall/*.csv
-          git commit -m "auto: update rainfall data" || echo "No changes to commit"
+          
+          git add data/rainfall || true
+          git commit -m "Update rainfall data" || echo "No changes to commit"
           git push
