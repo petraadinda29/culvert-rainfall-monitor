@@ -11,8 +11,10 @@ def fetch_meteobot(stations_df):
     end_date = now.strftime("%Y-%m-%d")
 
     for _, row in stations_df.iterrows():
-        station_id = str(row["id"]).strip()
+        station_id = str(row["id"]).strip().lstrip("'")
         station_name = row["station"]
+
+        print(f"[METEOBOT DEBUG] {station_name} → {station_id}")
 
         # Meteobot pakai ID numerik
         if not station_id or station_id.lower() == "nan":
