@@ -14,11 +14,6 @@ def fetch_meteobot(stations_df):
     for _, row in stations_df.iterrows():
         station_id = str(row["id"]).strip().lstrip("'")
         station_name = row["station"]
-        
-        print(
-            f"[DEBUG] station_id='{station_id}' "
-            f"env_key='METEOBOT_{station_id}_USER'"
-        )
 
         user = os.environ.get(f"METEOBOT_{station_id}_USER")
         password = os.environ.get(f"METEOBOT_{station_id}_PASS")
