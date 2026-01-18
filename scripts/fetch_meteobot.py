@@ -1,3 +1,4 @@
+import os
 import requests
 from datetime import datetime, timedelta
 
@@ -14,11 +15,14 @@ def fetch_meteobot(stations_df):
         station_id = str(row["id"]).strip().lstrip("'")
         station_name = row["station"]
 
-        print(f"[METEOBOT DEBUG] {station_name} → {station_id}")
+        user = os.environ.get(f"METEOBOT_{station_id}_USER")
+        password = os.environ.get(f"METEOBOT_{station_id}_PASS")
 
-        # Meteobot pakai ID numerik
-        if not station_id or station_id.lower() == "nan":
+        if not user or not password:
+            print(f"[METEOBOT SKIP] No credential for {station_name}")
             continue
+
+        print(f"[METEOBOT] Fetching {station_name}")
 
         try:
             url = (
@@ -28,25 +32,25 @@ def fetch_meteobot(stations_df):
                 f"&endTime={end_date}%2023:59"
             )
 
-            print(f"[METEOBOT] Fetching {station_name} ({station_id})")
-
-            resp = requests.get(url, timeout=30)
+            resp = requests.get(
+                url,
+                auth=(user, password),
+                timeout=30
+            )
             resp.raise_for_status()
 
             json_resp = resp.json()
             records = json_resp.get("data", [])
 
             if not records:
-                print(f"[METEOBOT] No data for {station_name}")
                 continue
 
             last = records[-1]
-            rainfall = last.get("rainfall", 0)
 
             rows.append({
                 "timestamp": now.isoformat(),
                 "station": station_name,
-                "rainfall_mm": rainfall,
+                "rainfall_mm": last.get("rainfall", 0),
                 "source": "meteobot"
             })
 
