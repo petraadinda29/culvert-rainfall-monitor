@@ -50,6 +50,10 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
           python scripts/fetch_rainfall.py
+
+      - name: Compare culvert capacity
+        run: |
+          python scripts/compare_culvert.py
       
       - name: Debug rainfall output
         run: |
@@ -63,5 +67,5 @@ jobs:
           git config user.email "github-actions@github.com"
           
           git add data/rainfall || true
-          git commit -m "Update rainfall data" || echo "No changes to commit"
+          git commit -m "Update rainfall & culvert status" || echo "No changes to commit"
           git push
