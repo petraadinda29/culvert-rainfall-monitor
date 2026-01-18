@@ -31,11 +31,17 @@ def main():
 
     all_rows = []
 
+    # =========================
+    # SPLIT STATION
+    # =========================
+    weather_stations = stations[~stations["id"].str.isdigit()]
+    meteobot_stations = stations[stations["id"].str.isdigit()]
+    
     # Weather.com
-    all_rows.extend(fetch_weather(stations, WEATHER_API_KEY))
+    all_rows.extend(fetch_weather(weather_stations, WEATHER_API_KEY))
 
     # Meteobot
-    all_rows.extend(fetch_meteobot(stations))
+    all_rows.extend(fetch_meteobot(meteobot_stations))
 
     if not all_rows:
         print("No rainfall data fetched.")
