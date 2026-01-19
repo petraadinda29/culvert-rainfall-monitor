@@ -26,7 +26,11 @@ def main():
     culvert = pd.read_csv(CULVERT_FILE)
     mapping = pd.read_csv(MAP_FILE)
 
-    rain["timestamp"] = pd.to_datetime(rain["timestamp"])
+    rain["timestamp"] = pd.to_datetime(
+        rain["timestamp"],
+        format="mixed",
+        errors="coerce"
+    )
 
     culvert = culvert[culvert["active"] == 1]
     mapping = mapping[mapping["active"] == 1]
