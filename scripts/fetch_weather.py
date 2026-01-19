@@ -31,7 +31,7 @@ def fetch_weather(stations_df, api_key):
             rainfall = obs["metric"].get("precipTotal")
 
             rows.append({
-                "timestamp": now,
+                "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
                 "station": station_name,
                 "rainfall_mm": rainfall,
                 "source": "weather"
