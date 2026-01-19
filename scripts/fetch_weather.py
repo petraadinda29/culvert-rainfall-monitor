@@ -1,12 +1,14 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 WEATHER_BASE_URL = "https://api.weather.com/v2/pws/observations/current"
 
+LOCAL_TZ = timezone(timedelta(hours=8))
+
 def fetch_weather(stations_df, api_key):
     rows = []
-   from datetime import datetime, timezone, timedelta
-    LOCAL_TZ = timezone(timedelta(hours=8))
+
+    # WAKTU SEKALI SAJA (UTC → UTC+8)
     now = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(LOCAL_TZ)
 
     for _, row in stations_df.iterrows():
@@ -28,7 +30,7 @@ def fetch_weather(stations_df, api_key):
             data = resp.json()
 
             obs = data["observations"][0]
-            rainfall = obs["metric"].get("precipTotal")
+            rainfall = obs["metric"].get("precipTotal", 0)
 
             rows.append({
                 "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
