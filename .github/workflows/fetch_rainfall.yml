@@ -61,6 +61,11 @@ jobs:
           ls -la data || true
           ls -la data/rainfall || true
 
+      - name: Debug culvert output
+        run: |
+          ls -la data/culvert_status || true
+          head -n 5 data/culvert_status/*.csv || true
+
       - name: Commit and push data
         run: |
           git config user.name "github-actions"
