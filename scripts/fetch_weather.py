@@ -5,7 +5,9 @@ WEATHER_BASE_URL = "https://api.weather.com/v2/pws/observations/current"
 
 def fetch_weather(stations_df, api_key):
     rows = []
-    now = datetime.utcnow().isoformat()
+   from datetime import datetime, timezone, timedelta
+    LOCAL_TZ = timezone(timedelta(hours=8))
+    now = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(LOCAL_TZ)
 
     for _, row in stations_df.iterrows():
         station_id = row["id"]
