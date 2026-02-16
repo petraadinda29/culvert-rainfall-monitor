@@ -67,6 +67,7 @@ def main():
 
     culvert_df = pd.read_csv(CULVERT_FILE)
     culvert_df = culvert_df[culvert_df["active"] == 1]
+    culvert_df = culvert_df[["id", "lat", "lon", "capacity"]]
 
     # Parse timestamp
     status_df["timestamp"] = pd.to_datetime(
