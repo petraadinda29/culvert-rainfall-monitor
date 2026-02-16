@@ -82,6 +82,9 @@ def main():
         .tail(1)
     )
 
+    if "capacity" in latest_status.columns:
+        latest_status = latest_status.drop(columns=["capacity"])
+
     # Merge lokasi
     merged = latest_status.merge(
         culvert_df,
