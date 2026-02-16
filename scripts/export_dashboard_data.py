@@ -124,7 +124,7 @@ def main():
 
         features.append({
             "culvert_id": row["culvert_id"],
-            "station": row.get("station"),
+            "station": str(row["station"]) if pd.notna(row["station"]) else None,
             "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
             "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
             "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
