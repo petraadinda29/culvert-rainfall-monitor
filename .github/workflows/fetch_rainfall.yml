@@ -54,6 +54,10 @@ jobs:
       - name: Compare culvert capacity
         run: |
           python scripts/compare_culvert.py
+
+      - name: Export dashboard data
+        run: |
+          python scripts/export_dashboard_data.py
       
       - name: Debug rainfall output
         run: |
