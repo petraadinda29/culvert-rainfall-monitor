@@ -82,6 +82,7 @@ def main():
         .tail(1)
     )
 
+    # Pastikan capacity hanya dari seed
     if "capacity" in latest_status.columns:
         latest_status = latest_status.drop(columns=["capacity"])
 
@@ -99,35 +100,35 @@ def main():
 
     for _, row in merged.iterrows():
 
-    status_value = row.get("status", "UNKNOWN")
+        status_value = row.get("status", "UNKNOWN")
 
-    if status_value == "OVER":
-        over_count += 1
-    elif status_value == "SAFE":
-        safe_count += 1
+        if status_value == "OVER":
+            over_count += 1
+        elif status_value == "SAFE":
+            safe_count += 1
 
-    # ===== FIX TIMEZONE HANDLING =====
-    ts_value = None
-    if pd.notna(row["timestamp"]):
-        ts = row["timestamp"]
+        # ===== SAFE TIMEZONE HANDLING =====
+        ts_value = None
+        if pd.notna(row["timestamp"]):
+            ts = row["timestamp"]
 
-        if ts.tzinfo is None:
-            ts = ts.tz_localize("UTC")  # anggap sumber UTC
+            if ts.tzinfo is None:
+                ts = ts.tz_localize("UTC")
 
-        ts = ts.tz_convert(LOCAL_TZ)
-        ts_value = ts.isoformat()
-    # =================================
+            ts = ts.tz_convert(LOCAL_TZ)
+            ts_value = ts.isoformat()
+        # ==================================
 
-    features.append({
-        "culvert_id": row["culvert_id"],
-        "station": row.get("station"),
-        "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
-        "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
-        "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
-        "capacity": float(row["capacity"]) if pd.notna(row["capacity"]) else None,
-        "status": status_value,
-        "timestamp": ts_value
-    })
+        features.append({
+            "culvert_id": row["culvert_id"],
+            "station": row.get("station"),
+            "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
+            "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
+            "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
+            "capacity": float(row["capacity"]) if pd.notna(row["capacity"]) else None,
+            "status": status_value,
+            "timestamp": ts_value
+        })
 
     output = {
         "meta": {
