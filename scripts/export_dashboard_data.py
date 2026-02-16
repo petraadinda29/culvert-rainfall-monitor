@@ -141,6 +141,21 @@ def main():
         "data": features
     }
 
+    # Replace NaN with None (valid JSON null)
+    merged = merged.where(pd.notnull(merged), None)
+
+    output = {
+        "meta": {
+            "generated_at": datetime.now().isoformat(),
+            "total_records": len(merged)
+        },
+        "data": merged.to_dict(orient="records")
+    }
+
+with open(output_path, "w") as f:
+    json.dump(output, f, indent=2)
+
+    
     with open(OUTPUT_FILE, "w") as f:
         json.dump(output, f, indent=2)
 
