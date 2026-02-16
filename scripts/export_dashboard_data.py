@@ -1,20 +1,135 @@
-import pandas as pd
 import os
+import json
+import pandas as pd
+from datetime import datetime, timezone, timedelta
 
-SRC_DIR = "data/culvert_status"
-DST_FILE = "docs/data/culvert_status_latest.csv"
+# ==============================
+# CONFIG
+# ==============================
 
-files = sorted(
-    f for f in os.listdir(SRC_DIR)
-    if f.startswith("culvert_status_")
-)
+BASE_DIR = os.getcwd()
 
-if not files:
-    raise FileNotFoundError("No culvert status file")
+STATUS_DIR = os.path.join(BASE_DIR, "data", "culvert_status")
+CULVERT_FILE = os.path.join(BASE_DIR, "data", "seed", "loc_culvert.csv")
 
-latest = os.path.join(SRC_DIR, files[-1])
+DASHBOARD_DIR = os.path.join(BASE_DIR, "site", "data")
+OUTPUT_FILE = os.path.join(DASHBOARD_DIR, "culvert_latest.json")
 
-df = pd.read_csv(latest)
-df.to_csv(DST_FILE, index=False)
+LOCAL_TZ = timezone(timedelta(hours=8))
+MIN_UPDATE_INTERVAL = timedelta(minutes=3)
 
-print("[OK] Dashboard data exported")
+os.makedirs(DASHBOARD_DIR, exist_ok=True)
+
+
+# ==============================
+# HELPER FUNCTIONS
+# ==============================
+
+def get_latest_status_file():
+    files = [
+        f for f in os.listdir(STATUS_DIR)
+        if f.startswith("culvert_status_") and f.endswith(".csv")
+    ]
+
+    if not files:
+        raise FileNotFoundError("No culvert status file found")
+
+    return os.path.join(STATUS_DIR, sorted(files)[-1])
+
+
+def should_update():
+    if not os.path.exists(OUTPUT_FILE):
+        return True
+
+    last_modified = datetime.fromtimestamp(
+        os.path.getmtime(OUTPUT_FILE),
+        tz=LOCAL_TZ
+    )
+
+    return datetime.now(LOCAL_TZ) - last_modified >= MIN_UPDATE_INTERVAL
+
+
+# ==============================
+# MAIN PROCESS
+# ==============================
+
+def main():
+
+    if not should_update():
+        print("[SKIP] Dashboard update < 3 minutes")
+        return
+
+    print("[INFO] Generating dashboard data...")
+
+    # Load data
+    status_file = get_latest_status_file()
+    status_df = pd.read_csv(status_file)
+
+    culvert_df = pd.read_csv(CULVERT_FILE)
+    culvert_df = culvert_df[culvert_df["active"] == 1]
+
+    # Parse timestamp
+    status_df["timestamp"] = pd.to_datetime(
+        status_df["timestamp"],
+        errors="coerce"
+    )
+
+    # Ambil status terbaru per culvert
+    latest_status = (
+        status_df.sort_values("timestamp")
+        .groupby("culvert_id")
+        .tail(1)
+    )
+
+    # Merge lokasi
+    merged = latest_status.merge(
+        culvert_df,
+        left_on="culvert_id",
+        right_on="id",
+        how="left"
+    )
+
+    features = []
+    over_count = 0
+    safe_count = 0
+
+    for _, row in merged.iterrows():
+
+        status_value = row.get("status", "UNKNOWN")
+
+        if status_value == "OVER":
+            over_count += 1
+        elif status_value == "SAFE":
+            safe_count += 1
+
+        features.append({
+            "culvert_id": row["culvert_id"],
+            "station": row.get("station"),
+            "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
+            "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
+            "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
+            "capacity": float(row["capacity"]),
+            "status": status_value,
+            "timestamp": row["timestamp"].astimezone(LOCAL_TZ).isoformat()
+                if pd.notna(row["timestamp"]) else None
+        })
+
+    output = {
+        "meta": {
+            "last_update": datetime.now(LOCAL_TZ).isoformat(),
+            "timezone": "UTC+8",
+            "total_culvert": len(features),
+            "over": over_count,
+            "safe": safe_count
+        },
+        "data": features
+    }
+
+    with open(OUTPUT_FILE, "w") as f:
+        json.dump(output, f, indent=2)
+
+    print(f"[OK] Dashboard JSON exported → {OUTPUT_FILE}")
+
+
+if __name__ == "__main__":
+    main()
