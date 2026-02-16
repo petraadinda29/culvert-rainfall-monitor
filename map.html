@@ -46,13 +46,18 @@ async function loadData() {
   const response = await fetch('dashboard_data/culvert_latest.json');
   const json = await response.json();
 
-  json.data.forEach(item => {
+  (json.data || json).forEach(item => {
 
-    if (!item.lat || !item.lon) return;
+    if (item.lat === null || item.lon === null) return;
+
+    const lat = parseFloat(item.lat);
+    const lon = parseFloat(item.lon);
+
+    if (isNaN(lat) || isNaN(lon)) return;
 
     const color = item.status === "OVER" ? "red" : "green";
 
-    const marker = L.circleMarker([item.lat, item.lon], {
+    const marker = L.circleMarker([lat, lon], {
       radius: 8,
       fillColor: color,
       color: "#000",
