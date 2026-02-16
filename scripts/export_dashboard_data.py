@@ -148,7 +148,7 @@ def main():
 
     # Save JSON
     with open(OUTPUT_FILE, "w") as f:
-        json.dump(output, f, indent=2)
+        json.dump(output, f, indent=2, allow_nan=False)
 
     print(f"[OK] Dashboard JSON exported → {OUTPUT_FILE}")
 
