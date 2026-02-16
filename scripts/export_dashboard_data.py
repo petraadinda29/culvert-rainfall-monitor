@@ -99,24 +99,35 @@ def main():
 
     for _, row in merged.iterrows():
 
-        status_value = row.get("status", "UNKNOWN")
+    status_value = row.get("status", "UNKNOWN")
 
-        if status_value == "OVER":
-            over_count += 1
-        elif status_value == "SAFE":
-            safe_count += 1
+    if status_value == "OVER":
+        over_count += 1
+    elif status_value == "SAFE":
+        safe_count += 1
 
-        features.append({
-            "culvert_id": row["culvert_id"],
-            "station": row.get("station"),
-            "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
-            "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
-            "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
-            "capacity": float(row["capacity"]),
-            "status": status_value,
-            "timestamp": row["timestamp"].astimezone(LOCAL_TZ).isoformat()
-                if pd.notna(row["timestamp"]) else None
-        })
+    # ===== FIX TIMEZONE HANDLING =====
+    ts_value = None
+    if pd.notna(row["timestamp"]):
+        ts = row["timestamp"]
+
+        if ts.tzinfo is None:
+            ts = ts.tz_localize("UTC")  # anggap sumber UTC
+
+        ts = ts.tz_convert(LOCAL_TZ)
+        ts_value = ts.isoformat()
+    # =================================
+
+    features.append({
+        "culvert_id": row["culvert_id"],
+        "station": row.get("station"),
+        "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
+        "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
+        "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
+        "capacity": float(row["capacity"]) if pd.notna(row["capacity"]) else None,
+        "status": status_value,
+        "timestamp": ts_value
+    })
 
     output = {
         "meta": {
