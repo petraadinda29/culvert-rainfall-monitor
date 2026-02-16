@@ -12,7 +12,7 @@ BASE_DIR = os.getcwd()
 STATUS_DIR = os.path.join(BASE_DIR, "data", "culvert_status")
 CULVERT_FILE = os.path.join(BASE_DIR, "data", "seed", "loc_culvert.csv")
 
-DASHBOARD_DIR = os.path.join(BASE_DIR, "site", "data")
+DASHBOARD_DIR = os.path.join(BASE_DIR, "dashboard_data")
 OUTPUT_FILE = os.path.join(DASHBOARD_DIR, "culvert_latest.json")
 
 LOCAL_TZ = timezone(timedelta(hours=8))
