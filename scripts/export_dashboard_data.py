@@ -98,6 +98,8 @@ def main():
         how="left"
     )
 
+    merged = merged.where(pd.notna(merged), None)
+    
     features = []
     over_count = 0
     safe_count = 0
