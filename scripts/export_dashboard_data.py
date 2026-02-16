@@ -124,9 +124,13 @@ def main():
             ts = ts.tz_convert(LOCAL_TZ)
             ts_value = ts.isoformat()
 
+        station_value = row["station"]
+        if pd.isna(station_value):
+            station_value = None
+        
         features.append({
             "culvert_id": row["culvert_id"],
-            "station": str(row["station"]) if pd.notna(row["station"]) else None,
+            "station": station_value,
             "lat": float(row["lat"]) if pd.notna(row["lat"]) else None,
             "lon": float(row["lon"]) if pd.notna(row["lon"]) else None,
             "rainfall_mm": float(row["rainfall_mm"]) if pd.notna(row["rainfall_mm"]) else None,
