@@ -80,6 +80,8 @@ def main():
     )
 
     status_df = status_df.dropna(subset=["timestamp"])
+
+    print("MAX TIMESTAMP:", status_df["timestamp"].max())
     
     # Latest status per culvert
     latest_status = (
