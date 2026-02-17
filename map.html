@@ -1,37 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Culvert Rainfall Monitor</title>
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
-    #map { height: 100vh; }
-    .legend {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 14px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-  </style>
-</head>
-<body>
-
-<div id="map"></div>
-
-<div class="legend">
-  <b>Status Legend</b><br>
-  🟢 SAFE<br>
-  🔴 OVER
-</div>
-
 <script>
 
 const map = L.map('map').setView([-2.5, 117], 5);
@@ -42,42 +8,67 @@ L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
   subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
 
+let markerLayer = L.layerGroup().addTo(map);
+
 async function loadData() {
-  const response = await fetch('./dashboard_data/culvert_latest.json');
-  const json = await response.json();
+  try {
+    console.log("Fetching JSON...");
 
-  (json.data || json).forEach(item => {
+    const response = await fetch('./dashboard_data/culvert_latest.json');
+    
+    if (!response.ok) {
+      throw new Error("Network response not OK");
+    }
 
-    if (item.lat === null || item.lon === null) return;
+    const json = await response.json();
 
-    const lat = parseFloat(item.lat);
-    const lon = parseFloat(item.lon);
+    console.log("FULL JSON:", json);
+    console.log("DATA ARRAY:", json.data);
 
-    if (isNaN(lat) || isNaN(lon)) return;
+    // Clear old markers
+    markerLayer.clearLayers();
 
-    const color = item.status === "OVER" ? "red" : "green";
+    if (!json.data || json.data.length === 0) {
+      console.warn("No data found in JSON");
+      return;
+    }
 
-    const marker = L.circleMarker([lat, lon], {
-      radius: 8,
-      fillColor: color,
-      color: "#000",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    }).addTo(map);
+    json.data.forEach(item => {
 
-    marker.bindPopup(`
-      <b>Culvert:</b> ${item.culvert_id}<br>
-      <b>Station:</b> ${item.station}<br>
-      <b>Rainfall:</b> ${item.rainfall_mm} mm<br>
-      <b>Capacity:</b> ${item.capacity} mm<br>
-      <b>Status:</b> ${item.status}<br>
-      <b>Time:</b> ${item.timestamp}
-    `);
+      if (item.lat === null || item.lon === null) return;
 
-  });
+      const lat = parseFloat(item.lat);
+      const lon = parseFloat(item.lon);
 
-  console.log("Loaded:", json.meta);
+      if (isNaN(lat) || isNaN(lon)) return;
+
+      const color = item.status === "OVER" ? "red" : "green";
+
+      const marker = L.circleMarker([lat, lon], {
+        radius: 8,
+        fillColor: color,
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      }).addTo(markerLayer);
+
+      marker.bindPopup(`
+        <b>Culvert:</b> ${item.culvert_id || "-"}<br>
+        <b>Station:</b> ${item.station || "-"}<br>
+        <b>Rainfall:</b> ${item.rainfall_mm ?? "-"} mm<br>
+        <b>Capacity:</b> ${item.capacity ?? "-"} mm<br>
+        <b>Status:</b> ${item.status || "-"}<br>
+        <b>Time:</b> ${item.timestamp || "-"}
+      `);
+
+    });
+
+    console.log("Markers loaded:", json.data.length);
+
+  } catch (error) {
+    console.error("ERROR loading data:", error);
+  }
 }
 
 loadData();
@@ -88,6 +79,3 @@ setInterval(() => {
 }, 180000);
 
 </script>
-
-</body>
-</html>
