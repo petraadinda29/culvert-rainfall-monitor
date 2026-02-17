@@ -43,7 +43,7 @@ L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
 }).addTo(map);
 
 async function loadData() {
-  const response = await fetch('dashboard_data/culvert_latest.json');
+  const response = await fetch('./dashboard_data/culvert_latest.json');
   const json = await response.json();
 
   (json.data || json).forEach(item => {
