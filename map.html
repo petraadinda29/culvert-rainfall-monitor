@@ -54,7 +54,7 @@ let markerLayer = L.layerGroup().addTo(map);
 async function loadData() {
   try {
 
-    const response = await fetch('dashboard_data/culvert_latest.json');
+    const response = await fetch('/culvert-rainfall-monitor/dashboard_data/culvert_latest.json');
     const json = await response.json();
 
     markerLayer.clearLayers();
