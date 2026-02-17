@@ -79,13 +79,15 @@ def main():
         errors="coerce"
     )
 
+    status_df = status_df.dropna(subset=["timestamp"])
+    
     # Latest status per culvert
     latest_status = (
         status_df.sort_values("timestamp")
         .groupby("culvert_id")
         .tail(1)
     )
-
+    
     # Remove duplicated capacity from status
     if "capacity" in latest_status.columns:
         latest_status = latest_status.drop(columns=["capacity"])
