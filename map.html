@@ -21,7 +21,7 @@ body { margin: 0; font-family: Arial, sans-serif; }
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   z-index: 1000;
 }
@@ -201,6 +201,7 @@ async function loadCulvertData() {
         "<b>Culvert:</b> " + (item.culvert_id || "-") + "<br>" +
         "<b>Station:</b> " + (item.station || "-") + "<br>" +
         "<b>Rainfall:</b> " + (item.rainfall_mm ?? "-") + " mm<br>" +
+        "<b>Capacity:</b> " + (item.capacity ?? "-") + " mm<br>" +
         "<b>Status:</b> " + (item.status || "-")
       );
 
