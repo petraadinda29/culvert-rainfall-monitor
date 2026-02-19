@@ -57,7 +57,14 @@ jobs:
 
       - name: Export dashboard data
         run: |
-          python scripts/export_dashboard_data.py
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run detected → FORCE export"
+            python scripts/export_dashboard_data.py force
+          else
+            echo "Scheduled run → normal export"
+            python scripts/export_dashboard_data.py
+          fi
+
       
       - name: Debug rainfall output
         run: |
