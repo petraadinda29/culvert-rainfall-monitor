@@ -172,6 +172,7 @@ timelineBox.onAdd = function () {
       border-radius:8px;
       box-shadow:0 0 10px rgba(0,0,0,0.3);
       font-size:12px;
+      margin-bottom:60px;
     ">
       <div><b>Timeline (24H)</b></div>
       <input type="range" id="timeSlider" min="0" max="0" value="0" style="width:200px;">
@@ -191,9 +192,29 @@ async function loadHistory() {
     'dashboard_data/culvert_history.json?v=' + new Date().getTime()
   );
 
-  historyData = await response.json();
+  const json = await response.json();
 
-  if (!Array.isArray(historyData) || historyData.length === 0) return;
+  // ===============================
+  // FORMAT 1: ARRAY HISTORY
+  // ===============================
+  if (Array.isArray(json)) {
+    historyData = json;
+  }
+  // ===============================
+  // FORMAT 2: SINGLE SNAPSHOT
+  // ===============================
+  else if (json.data) {
+    historyData = [{
+      timestamp: json.meta?.last_update || "Latest",
+      data: json.data
+    }];
+  }
+  else {
+    console.error("Unknown JSON format");
+    return;
+  }
+
+  if (historyData.length === 0) return;
 
   const slider = document.getElementById("timeSlider");
   slider.max = historyData.length - 1;
