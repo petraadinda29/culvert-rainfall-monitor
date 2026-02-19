@@ -169,38 +169,55 @@ async function loadCulvertData() {
 
 async function loadStations() {
 
-  const response = await fetch('data/seed/loc_stations.csv?v=' + new Date().getTime());
-  const csvText = await response.text();
+  try {
 
-  stationLayer.clearLayers();
+    const response = await fetch('data/seed/loc_stations.csv?v=' + new Date().getTime());
+    const csvText = await response.text();
 
-  const rows = csvText.split("\n").slice(1);
+    stationLayer.clearLayers();
 
-  rows.forEach(row => {
+    const rows = csvText.trim().split("\n");
 
-    if (!row) return;
+    rows.slice(1).forEach(row => {
 
-    const cols = row.split(",");
-    const station = cols[1];
-    const lat = parseFloat(cols[2]);
-    const lon = parseFloat(cols[3]);
-    const active = cols[4];
+      if (!row) return;
 
-    if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
+      // Karena file kamu TAB separated
+      const cols = row.split("\t");
 
-      const stationIcon = L.divIcon({
-        className: '',
-        html: '<div style="width:14px;height:14px;background:yellow;border:2px solid black;"></div>',
-        iconSize: [14,14],
-        iconAnchor: [7,7]
-      });
+      const station = cols[1]?.trim();   // kolom station
+      const lat = parseFloat(cols[2]?.trim());
+      const lon = parseFloat(cols[3]?.trim());
+      const active = cols[4]?.trim();
 
-      L.marker([lat, lon], { icon: stationIcon })
-        .addTo(stationLayer)
-        .bindPopup("<b>Station:</b> " + station);
-    }
+      if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
 
-  });
+        const stationIcon = L.divIcon({
+          className: '',
+          html: `
+            <div style="
+              width:16px;
+              height:16px;
+              background:yellow;
+              border:2px solid black;
+              box-shadow:0 0 5px rgba(0,0,0,0.5);
+            "></div>
+          `,
+          iconSize: [16,16],
+          iconAnchor: [8,8]
+        });
+
+        L.marker([lat, lon], { icon: stationIcon })
+          .addTo(stationLayer)
+          .bindPopup("<b>Station:</b> " + station);
+
+      }
+
+    });
+
+  } catch (error) {
+    console.error("Station load error:", error);
+  }
 
 }
 
