@@ -11,10 +11,8 @@
 
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
-
     #map { height: 100vh; }
 
-    /* ================= TITLE ================= */
     .title-box {
       position: absolute;
       top: 15px;
@@ -28,7 +26,6 @@
       z-index: 1000;
     }
 
-    /* ================= LAST UPDATE ================= */
     .last-update {
       position: absolute;
       bottom: 15px;
@@ -40,7 +37,6 @@
       z-index: 1000;
     }
 
-    /* ================= CRITICAL PANEL ================= */
     .critical-panel {
       position: absolute;
       top: 80px;
@@ -68,9 +64,9 @@
       background: #ffe6e6;
       border-radius: 6px;
     }
-
   </style>
 </head>
+
 <body>
 
 <div id="map"></div>
@@ -99,23 +95,22 @@ L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
   subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
 
-let markerLayer = L.layerGroup().addTo(map);
+let culvertLayer = L.layerGroup().addTo(map);
 let stationLayer = L.layerGroup().addTo(map);
 
-async function loadData() {
+async function loadCulvertData() {
 
   const response = await fetch(
     'dashboard_data/culvert_latest.json?v=' + new Date().getTime()
   );
+
   const json = await response.json();
 
-  markerLayer.clearLayers();
-  stationLayer.clearLayers();
+  culvertLayer.clearLayers();
 
   let bounds = [];
   let criticalHTML = "";
 
-  // ================= LAST UPDATE =================
   if (json.meta && json.meta.last_update) {
     document.getElementById("lastUpdate").innerHTML =
       "Last Update: " + json.meta.last_update;
@@ -123,7 +118,7 @@ async function loadData() {
 
   json.data.forEach(function(item) {
 
-    if (item.lat == null || item.lon == null) return;
+    if (!item.lat || !item.lon) return;
 
     const lat = parseFloat(item.lat);
     const lon = parseFloat(item.lon);
@@ -134,14 +129,13 @@ async function loadData() {
 
     const isOver = item.status === "OVER";
 
-    // ================= CULVERT CIRCLE =================
     const marker = L.circleMarker([lat, lon], {
       radius: 8,
       fillColor: isOver ? "red" : "green",
       color: "#000",
       weight: 1,
       fillOpacity: 0.9
-    }).addTo(markerLayer);
+    }).addTo(culvertLayer);
 
     marker.bindPopup(
       "<b>Culvert:</b> " + (item.culvert_id || "-") + "<br>" +
@@ -152,20 +146,6 @@ async function loadData() {
       "<b>Time:</b> " + (item.timestamp || "-")
     );
 
-    // ================= STATION MARKER (KOTAK KUNING) =================
-    if (item.station) {
-
-      const stationIcon = L.divIcon({
-        className: '',
-        html: '<div style="width:14px;height:14px;background:yellow;border:2px solid black;"></div>'
-      });
-
-      L.marker([lat, lon], { icon: stationIcon })
-        .addTo(stationLayer)
-        .bindPopup("<b>Station:</b> " + item.station);
-    }
-
-    // ================= CRITICAL PANEL =================
     if (isOver) {
       criticalHTML +=
         '<div class="critical-item">' +
@@ -185,7 +165,51 @@ async function loadData() {
 
 }
 
-loadData();
+// ================= LOAD STATION CSV =================
+
+async function loadStations() {
+
+  const response = await fetch('data/seed/loc_stations.csv?v=' + new Date().getTime());
+  const csvText = await response.text();
+
+  stationLayer.clearLayers();
+
+  const rows = csvText.split("\n").slice(1);
+
+  rows.forEach(row => {
+
+    if (!row) return;
+
+    const cols = row.split(",");
+    const station = cols[1];
+    const lat = parseFloat(cols[2]);
+    const lon = parseFloat(cols[3]);
+    const active = cols[4];
+
+    if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
+
+      const stationIcon = L.divIcon({
+        className: '',
+        html: '<div style="width:14px;height:14px;background:yellow;border:2px solid black;"></div>',
+        iconSize: [14,14],
+        iconAnchor: [7,7]
+      });
+
+      L.marker([lat, lon], { icon: stationIcon })
+        .addTo(stationLayer)
+        .bindPopup("<b>Station:</b> " + station);
+    }
+
+  });
+
+}
+
+async function init() {
+  await loadCulvertData();
+  await loadStations();
+}
+
+init();
 
 setInterval(function() {
   location.reload();
