@@ -64,6 +64,47 @@ body { margin: 0; font-family: Arial, sans-serif; }
   background: #ffe6e6;
   border-radius: 6px;
 }
+
+/* ================= LEGEND ================= */
+.legend-box {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  background: rgba(255,255,255,0.95);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.legend-symbol {
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+}
+
+.legend-circle-green {
+  background: green;
+  border-radius: 50%;
+}
+
+.legend-circle-red {
+  background: red;
+  border-radius: 50%;
+}
+
+.legend-square-yellow {
+  background: yellow;
+  border: 2px solid black;
+}
+
 </style>
 </head>
 
@@ -84,6 +125,23 @@ Last Update: -
 <div id="criticalList">No critical data</div>
 </div>
 
+<div class="legend-box">
+  <div class="legend-item">
+    <div class="legend-symbol legend-circle-green"></div>
+    Safe
+  </div>
+
+  <div class="legend-item">
+    <div class="legend-symbol legend-circle-red"></div>
+    Critical
+  </div>
+
+  <div class="legend-item">
+    <div class="legend-symbol legend-square-yellow"></div>
+    Station
+  </div>
+</div>
+  
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
