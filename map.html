@@ -157,7 +157,6 @@ let culvertLayer = L.layerGroup().addTo(map);
 let stationLayer = L.layerGroup().addTo(map);
 
 let historyData = [];
-let globalBounds = [];
 
 /* ================= TIMELINE UI ================= */
 
@@ -172,7 +171,7 @@ timelineBox.onAdd = function () {
       border-radius:8px;
       box-shadow:0 0 10px rgba(0,0,0,0.3);
       font-size:12px;
-      margin-bottom:60px;
+      margin-bottom:100px;
     ">
       <div><b>Timeline (24H)</b></div>
       <input type="range" id="timeSlider" min="0" max="0" value="0" style="width:200px;">
@@ -188,43 +187,37 @@ timelineBox.addTo(map);
 
 async function loadHistory() {
 
-  const response = await fetch(
-    'dashboard_data/culvert_history.json?v=' + new Date().getTime()
-  );
+  try {
 
-  const json = await response.json();
+    const response = await fetch(
+      'dashboard_data/culvert_history.json?v=' + new Date().getTime()
+    );
 
-  // ===============================
-  // FORMAT 1: ARRAY HISTORY
-  // ===============================
-  if (Array.isArray(json)) {
+    const json = await response.json();
+
+    if (!Array.isArray(json)) {
+      console.error("History bukan array!");
+      return;
+    }
+
     historyData = json;
+
+    if (historyData.length === 0) return;
+
+    const slider = document.getElementById("timeSlider");
+
+    slider.max = historyData.length - 1;
+    slider.value = historyData.length - 1;
+
+    slider.oninput = function() {
+      renderSnapshot(parseInt(this.value));
+    };
+
+    renderSnapshot(historyData.length - 1);
+
+  } catch (err) {
+    console.error("Load history error:", err);
   }
-  // ===============================
-  // FORMAT 2: SINGLE SNAPSHOT
-  // ===============================
-  else if (json.data) {
-    historyData = [{
-      timestamp: json.meta?.last_update || "Latest",
-      data: json.data
-    }];
-  }
-  else {
-    console.error("Unknown JSON format");
-    return;
-  }
-
-  if (historyData.length === 0) return;
-
-  const slider = document.getElementById("timeSlider");
-  slider.max = historyData.length - 1;
-  slider.value = historyData.length - 1;
-
-  slider.oninput = function() {
-    renderSnapshot(parseInt(this.value));
-  };
-
-  renderSnapshot(historyData.length - 1);
 }
 
 /* ================= RENDER SNAPSHOT ================= */
@@ -232,10 +225,10 @@ async function loadHistory() {
 function renderSnapshot(index) {
 
   culvertLayer.clearLayers();
-  globalBounds = [];
+
+  if (!historyData[index]) return;
 
   const snapshot = historyData[index];
-  if (!snapshot) return;
 
   document.getElementById("lastUpdate").innerHTML =
     "Snapshot Time: " + snapshot.timestamp;
@@ -244,15 +237,21 @@ function renderSnapshot(index) {
     snapshot.timestamp;
 
   let criticalHTML = "";
+  let bounds = [];
 
-  snapshot.data.forEach(item => {
+  if (!snapshot.culverts || !Array.isArray(snapshot.culverts)) {
+    console.error("Field culverts tidak ditemukan!");
+    return;
+  }
+
+  snapshot.culverts.forEach(item => {
 
     const lat = parseFloat(item.lat);
     const lon = parseFloat(item.lon);
 
     if (isNaN(lat) || isNaN(lon)) return;
 
-    globalBounds.push([lat, lon]);
+    bounds.push([lat, lon]);
 
     const isOver = item.status === "OVER";
 
@@ -284,8 +283,8 @@ function renderSnapshot(index) {
   document.getElementById("criticalList").innerHTML =
     criticalHTML || "No critical culvert";
 
-  if (globalBounds.length > 0) {
-    map.fitBounds(globalBounds, { padding: [50,50] });
+  if (bounds.length > 0) {
+    map.fitBounds(bounds, { padding: [50,50] });
   }
 }
 
@@ -293,48 +292,54 @@ function renderSnapshot(index) {
 
 async function loadStations() {
 
-  const response = await fetch(
-    'data/seed/loc_stations.csv?v=' + new Date().getTime()
-  );
+  try {
 
-  const csvText = await response.text();
-  stationLayer.clearLayers();
+    const response = await fetch(
+      'data/seed/loc_stations.csv?v=' + new Date().getTime()
+    );
 
-  const rows = csvText.trim().split("\n");
+    const csvText = await response.text();
+    stationLayer.clearLayers();
 
-  rows.slice(1).forEach(row => {
+    const rows = csvText.trim().split("\n");
 
-    if (!row) return;
+    rows.slice(1).forEach(row => {
 
-    const cols = row.includes(",") ? row.split(",") : row.split("\t");
+      if (!row) return;
 
-    const station = cols[1]?.trim();
-    const lat = parseFloat(cols[2]?.trim());
-    const lon = parseFloat(cols[3]?.trim());
-    const active = cols[4]?.trim();
+      const cols = row.includes(",") ? row.split(",") : row.split("\t");
 
-    if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
+      const station = cols[1]?.trim();
+      const lat = parseFloat(cols[2]?.trim());
+      const lon = parseFloat(cols[3]?.trim());
+      const active = cols[4]?.trim();
 
-      const stationIcon = L.divIcon({
-        className: '',
-        html: `
-          <div style="
-            width:16px;
-            height:16px;
-            background:yellow;
-            border:2px solid black;
-          "></div>
-        `,
-        iconSize: [16,16],
-        iconAnchor: [8,8]
-      });
+      if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
 
-      L.marker([lat, lon], { icon: stationIcon })
-        .addTo(stationLayer)
-        .bindPopup("<b>Station:</b> " + station);
-    }
+        const stationIcon = L.divIcon({
+          className: '',
+          html: `
+            <div style="
+              width:16px;
+              height:16px;
+              background:yellow;
+              border:2px solid black;
+            "></div>
+          `,
+          iconSize: [16,16],
+          iconAnchor: [8,8]
+        });
 
-  });
+        L.marker([lat, lon], { icon: stationIcon })
+          .addTo(stationLayer)
+          .bindPopup("<b>Station:</b> " + station);
+      }
+
+    });
+
+  } catch (err) {
+    console.error("Station load error:", err);
+  }
 }
 
 /* ================= INIT ================= */
