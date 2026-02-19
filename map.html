@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Monitoring Culvert PT SIS</title>
+<meta charset="utf-8" />
+<title>Monitoring Culvert PT SIS</title>
 
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
-  />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+/>
 
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
-    #map { height: 100vh; }
+<style>
+body { margin: 0; font-family: Arial, sans-serif; }
+#map { height: 100vh; }
 
-    .title-box {
-      position: absolute;
-      top: 15px;
-      left: 20px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: bold;
-      z-index: 1000;
-    }
+.title-box {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1000;
+}
 
-    .last-update {
-      position: absolute;
-      bottom: 15px;
-      right: 20px;
-      background: rgba(255,255,255,0.9);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      z-index: 1000;
-    }
+.last-update {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  background: rgba(255,255,255,0.9);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 1000;
+}
 
-    .critical-panel {
-      position: absolute;
-      top: 80px;
-      right: 20px;
-      width: 250px;
-      max-height: 60vh;
-      overflow-y: auto;
-      background: white;
-      padding: 12px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
+.critical-panel {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  width: 250px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
 
-    .critical-panel h3 {
-      margin-top: 0;
-      color: red;
-      font-size: 16px;
-    }
+.critical-panel h3 {
+  margin-top: 0;
+  color: red;
+  font-size: 16px;
+}
 
-    .critical-item {
-      font-size: 13px;
-      margin-bottom: 8px;
-      padding: 6px;
-      background: #ffe6e6;
-      border-radius: 6px;
-    }
-  </style>
+.critical-item {
+  font-size: 13px;
+  margin-bottom: 8px;
+  padding: 6px;
+  background: #ffe6e6;
+  border-radius: 6px;
+}
+</style>
 </head>
 
 <body>
@@ -72,23 +72,23 @@
 <div id="map"></div>
 
 <div class="title-box">
-  Monitoring Culvert PT SIS
+Monitoring Culvert PT SIS
 </div>
 
 <div class="last-update" id="lastUpdate">
-  Last Update: -
+Last Update: -
 </div>
 
 <div class="critical-panel">
-  <h3>Critical Culvert (OVER)</h3>
-  <div id="criticalList">No critical data</div>
+<h3>Critical Culvert (OVER)</h3>
+<div id="criticalList">No critical data</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-const map = L.map('map');
+const map = L.map('map').setView([-2.18, 115.56], 10);
 
 L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
   maxZoom: 20,
@@ -98,82 +98,84 @@ L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
 let culvertLayer = L.layerGroup().addTo(map);
 let stationLayer = L.layerGroup().addTo(map);
 
+let globalBounds = [];
+
+
+// ================= LOAD CULVERT =================
 async function loadCulvertData() {
 
-  const response = await fetch(
-    'dashboard_data/culvert_latest.json?v=' + new Date().getTime()
-  );
+  try {
 
-  const json = await response.json();
-
-  culvertLayer.clearLayers();
-
-  let bounds = [];
-  let criticalHTML = "";
-
-  if (json.meta && json.meta.last_update) {
-    document.getElementById("lastUpdate").innerHTML =
-      "Last Update: " + json.meta.last_update;
-  }
-
-  json.data.forEach(function(item) {
-
-    if (!item.lat || !item.lon) return;
-
-    const lat = parseFloat(item.lat);
-    const lon = parseFloat(item.lon);
-
-    if (isNaN(lat) || isNaN(lon)) return;
-
-    bounds.push([lat, lon]);
-
-    const isOver = item.status === "OVER";
-
-    const marker = L.circleMarker([lat, lon], {
-      radius: 8,
-      fillColor: isOver ? "red" : "green",
-      color: "#000",
-      weight: 1,
-      fillOpacity: 0.9
-    }).addTo(culvertLayer);
-
-    marker.bindPopup(
-      "<b>Culvert:</b> " + (item.culvert_id || "-") + "<br>" +
-      "<b>Station:</b> " + (item.station || "-") + "<br>" +
-      "<b>Rainfall:</b> " + (item.rainfall_mm ?? "-") + " mm<br>" +
-      "<b>Capacity:</b> " + (item.capacity ?? "-") + " mm<br>" +
-      "<b>Status:</b> " + (item.status || "-") + "<br>" +
-      "<b>Time:</b> " + (item.timestamp || "-")
+    const response = await fetch(
+      'dashboard_data/culvert_latest.json?v=' + new Date().getTime()
     );
 
-    if (isOver) {
-      criticalHTML +=
-        '<div class="critical-item">' +
-        '<b>' + item.culvert_id + '</b><br>' +
-        'Rainfall: ' + item.rainfall_mm + ' mm' +
-        '</div>';
+    const json = await response.json();
+    culvertLayer.clearLayers();
+
+    let criticalHTML = "";
+
+    if (json.meta?.last_update) {
+      document.getElementById("lastUpdate").innerHTML =
+        "Last Update: " + json.meta.last_update;
     }
 
-  });
+    json.data.forEach(item => {
 
-  document.getElementById("criticalList").innerHTML =
-    criticalHTML || "No critical culvert";
+      const lat = parseFloat(item.lat);
+      const lon = parseFloat(item.lon);
 
-  if (bounds.length > 0) {
-    map.fitBounds(bounds, { padding: [50,50] });
+      if (isNaN(lat) || isNaN(lon)) return;
+
+      globalBounds.push([lat, lon]);
+
+      const isOver = item.status === "OVER";
+
+      const marker = L.circleMarker([lat, lon], {
+        radius: 8,
+        fillColor: isOver ? "red" : "green",
+        color: "#000",
+        weight: 1,
+        fillOpacity: 0.9
+      }).addTo(culvertLayer);
+
+      marker.bindPopup(
+        "<b>Culvert:</b> " + (item.culvert_id || "-") + "<br>" +
+        "<b>Station:</b> " + (item.station || "-") + "<br>" +
+        "<b>Rainfall:</b> " + (item.rainfall_mm ?? "-") + " mm<br>" +
+        "<b>Status:</b> " + (item.status || "-")
+      );
+
+      if (isOver) {
+        criticalHTML +=
+          '<div class="critical-item">' +
+          '<b>' + (item.culvert_id || '-') + '</b><br>' +
+          'Rainfall: ' + (item.rainfall_mm || '-') + ' mm' +
+          '</div>';
+      }
+
+    });
+
+    document.getElementById("criticalList").innerHTML =
+      criticalHTML || "No critical culvert";
+
+  } catch (err) {
+    console.error("Culvert error:", err);
   }
-
 }
 
-// ================= LOAD STATION CSV =================
 
+
+// ================= LOAD STATIONS =================
 async function loadStations() {
 
   try {
 
-    const response = await fetch('data/seed/loc_stations.csv?v=' + new Date().getTime());
-    const csvText = await response.text();
+    const response = await fetch(
+      'data/seed/loc_stations.csv?v=' + new Date().getTime()
+    );
 
+    const csvText = await response.text();
     stationLayer.clearLayers();
 
     const rows = csvText.trim().split("\n");
@@ -182,15 +184,17 @@ async function loadStations() {
 
       if (!row) return;
 
-      // Karena file kamu TAB separated
-      const cols = row.split("\t");
+      // Auto detect comma or tab
+      const cols = row.includes(",") ? row.split(",") : row.split("\t");
 
-      const station = cols[1]?.trim();   // kolom station
+      const station = cols[1]?.trim();
       const lat = parseFloat(cols[2]?.trim());
       const lon = parseFloat(cols[3]?.trim());
       const active = cols[4]?.trim();
 
       if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
+
+        globalBounds.push([lat, lon]);
 
         const stationIcon = L.divIcon({
           className: '',
@@ -200,7 +204,7 @@ async function loadStations() {
               height:16px;
               background:yellow;
               border:2px solid black;
-              box-shadow:0 0 5px rgba(0,0,0,0.5);
+              box-shadow:0 0 6px rgba(0,0,0,0.5);
             "></div>
           `,
           iconSize: [16,16],
@@ -215,22 +219,30 @@ async function loadStations() {
 
     });
 
-  } catch (error) {
-    console.error("Station load error:", error);
+  } catch (err) {
+    console.error("Station error:", err);
+  }
+}
+
+
+
+// ================= INIT =================
+async function init() {
+
+  globalBounds = [];
+
+  await loadCulvertData();
+  await loadStations();
+
+  if (globalBounds.length > 0) {
+    map.fitBounds(globalBounds, { padding: [50,50] });
   }
 
 }
 
-async function init() {
-  await loadCulvertData();
-  await loadStations();
-}
-
 init();
 
-setInterval(function() {
-  location.reload();
-}, 180000);
+setInterval(init, 180000);
 
 </script>
 
