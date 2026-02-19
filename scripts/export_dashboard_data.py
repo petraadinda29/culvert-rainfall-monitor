@@ -55,7 +55,7 @@ def should_update():
 
 def main():
 
-    if not should_update():
+    if not should_update() and "force" not in sys.argv:
         print("[SKIP] Dashboard update < 3 minutes")
         return
 
@@ -161,5 +161,17 @@ def main():
     print(f"[OK] Dashboard JSON exported → {OUTPUT_FILE}")
 
 
+import sys
+
 if __name__ == "__main__":
-    main()
+    force = False
+
+    if len(sys.argv) > 1 and sys.argv[1] == "force":
+        force = True
+
+    if force:
+        print("[FORCE] Manual run - skipping interval check")
+        main()
+    else:
+        main()
+
