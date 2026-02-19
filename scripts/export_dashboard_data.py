@@ -15,6 +15,8 @@ CULVERT_FILE = os.path.join(BASE_DIR, "data", "seed", "loc_culvert.csv")
 DASHBOARD_DIR = os.path.join(BASE_DIR, "dashboard_data")
 OUTPUT_FILE = os.path.join(DASHBOARD_DIR, "culvert_latest.json")
 
+HISTORY_FILE = os.path.join(DASHBOARD_DIR, "culvert_history.json")
+
 LOCAL_TZ = timezone(timedelta(hours=8))
 MIN_UPDATE_INTERVAL = timedelta(minutes=3)
 
@@ -158,8 +160,40 @@ def main():
     with open(OUTPUT_FILE, "w") as f:
         json.dump(output, f, indent=2, allow_nan=False)
 
-    print(f"[OK] Dashboard JSON exported → {OUTPUT_FILE}")
+    # ==============================
+    # SAVE HISTORY 24 HOURS
+    # ==============================
 
+    # Load existing history
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r") as f:
+            history = json.load(f)
+    else:
+        history = []
+
+    # Append new snapshot
+    history.append({
+        "timestamp": datetime.now(LOCAL_TZ).isoformat(),
+        "culverts": features
+    })
+
+    # Keep only last 24 hours
+    cutoff = datetime.now(LOCAL_TZ) - timedelta(hours=24)
+
+    new_history = []
+    for h in history:
+        try:
+            ts = datetime.fromisoformat(h["timestamp"])
+            if ts > cutoff:
+                new_history.append(h)
+        except:
+            pass
+
+    # Save back
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(new_history, f, indent=2, allow_nan=False)
+
+    print(f"[OK] Dashboard JSON exported → {OUTPUT_FILE}")
 
 import sys
 
