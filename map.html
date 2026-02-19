@@ -171,7 +171,7 @@ timelineBox.onAdd = function () {
       border-radius:8px;
       box-shadow:0 0 10px rgba(0,0,0,0.3);
       font-size:12px;
-      margin-bottom:100px;
+      margin-bottom:60px;
     ">
       <div><b>Timeline (24H)</b></div>
       <input type="range" id="timeSlider" min="0" max="0" value="0" style="width:200px;">
@@ -265,6 +265,7 @@ function renderSnapshot(index) {
 
     marker.bindPopup(
       "<b>Culvert:</b> " + item.culvert_id + "<br>" +
+      "<b>Station:</b> " + (item.station || "-") + "<br>" +
       "<b>Status:</b> " + item.status + "<br>" +
       "<b>Rainfall:</b> " + item.rainfall_mm + " mm<br>" +
       "<b>Capacity:</b> " + item.capacity + " mm"
