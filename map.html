@@ -2,109 +2,58 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Monitoring Culvert PT SIS</title>
+<title>Culvert Rainfall Monitor</title>
 
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
-/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
-body { margin: 0; font-family: Arial, sans-serif; }
-#map { height: 100vh; }
-
-.title-box {
-  position: absolute;
-  top: 15px;
-  left: 20px;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 24px;
-  font-weight: bold;
-  z-index: 1000;
+html, body {
+  margin:0;
+  padding:0;
+  height:100%;
 }
 
-.last-update {
-  position: absolute;
-  bottom: 15px;
-  right: 20px;
-  background: rgba(255,255,255,0.9);
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  z-index: 1000;
+#map {
+  width:100%;
+  height:100%;
 }
 
-.critical-panel {
-  position: absolute;
-  top: 80px;
-  right: 20px;
-  width: 250px;
-  max-height: 60vh;
-  overflow-y: auto;
-  background: white;
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  z-index: 1000;
+.legend {
+  background:white;
+  padding:10px;
+  line-height:1.6;
+  font-size:13px;
+  border-radius:6px;
 }
 
-.critical-panel h3 {
-  margin-top: 0;
-  color: red;
-  font-size: 16px;
+.legend i {
+  width:14px;
+  height:14px;
+  float:left;
+  margin-right:8px;
+  opacity:0.9;
 }
 
-.critical-item {
-  font-size: 13px;
-  margin-bottom: 8px;
-  padding: 6px;
-  background: #ffe6e6;
-  border-radius: 6px;
+.critical-box {
+  background:white;
+  padding:10px;
+  max-height:200px;
+  overflow:auto;
+  font-size:12px;
+  border-radius:6px;
 }
 
-/* ================= LEGEND ================= */
-.legend-box {
-  position: absolute;
-  bottom: 15px;
-  left: 20px;
-  background: rgba(255,255,255,0.95);
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  z-index: 1000;
+.header-box {
+  background:white;
+  padding:8px;
+  font-size:13px;
+  border-radius:6px;
 }
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.legend-symbol {
-  width: 14px;
-  height: 14px;
-  margin-right: 8px;
-}
-
-.legend-circle-green {
-  background: green;
-  border-radius: 50%;
-}
-
-.legend-circle-red {
-  background: red;
-  border-radius: 50%;
-}
-
-.legend-square-yellow {
-  background: yellow;
-  border: 2px solid black;
-}
-
 </style>
 </head>
 
@@ -112,244 +61,174 @@ body { margin: 0; font-family: Arial, sans-serif; }
 
 <div id="map"></div>
 
-<div class="title-box">
-Monitoring Culvert PT SIS
-</div>
-
-<div class="last-update" id="lastUpdate">
-Last Update: -
-</div>
-
-<div class="critical-panel">
-<h3>Critical Culvert (OVER)</h3>
-<div id="criticalList">No critical data</div>
-</div>
-
-<div class="legend-box">
-  <div class="legend-item">
-    <div class="legend-symbol legend-circle-green"></div>
-    Safe
-  </div>
-
-  <div class="legend-item">
-    <div class="legend-symbol legend-circle-red"></div>
-    Critical
-  </div>
-
-  <div class="legend-item">
-    <div class="legend-symbol legend-square-yellow"></div>
-    Station
-  </div>
-</div>
-  
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 
-const map = L.map('map').setView([-2.18, 115.56], 10);
+/* ================= MAP INIT ================= */
 
-L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-  maxZoom: 20,
-  subdomains:['mt0','mt1','mt2','mt3']
-}).addTo(map);
+const map = L.map('map').setView([-2.18,115.57], 11);
 
-let culvertLayer = L.layerGroup().addTo(map);
-let stationLayer = L.layerGroup().addTo(map);
+L.tileLayer(
+ 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+ {
+   attribution:'© OpenStreetMap contributors'
+ }).addTo(map);
 
-let historyData = [];
+const stationLayer = L.layerGroup().addTo(map);
+const culvertLayer = L.layerGroup().addTo(map);
 
-/* ================= TIMELINE UI ================= */
+/* ================= HEADER ================= */
 
-const timelineBox = L.control({ position: "bottomright" });
-
-timelineBox.onAdd = function () {
-  const div = L.DomUtil.create("div");
-  div.innerHTML = `
-    <div style="
-      background:white;
-      padding:10px;
-      border-radius:8px;
-      box-shadow:0 0 10px rgba(0,0,0,0.3);
-      font-size:12px;
-      margin-bottom:60px;
-    ">
-      <div><b>Timeline (24H)</b></div>
-      <input type="range" id="timeSlider" min="0" max="0" value="0" style="width:200px;">
-      <div id="timeLabel" style="margin-top:5px;">-</div>
-    </div>
-  `;
+const headerBox = L.control({position:'topright'});
+headerBox.onAdd = function(){
+  const div = L.DomUtil.create('div','header-box');
+  div.innerHTML =
+    "<b>Culvert Rainfall Monitor</b><br>" +
+    "<span id='lastUpdate'>Loading...</span>";
   return div;
 };
+headerBox.addTo(map);
 
-timelineBox.addTo(map);
+/* ================= LEGEND ================= */
 
-/* ================= LOAD HISTORY ================= */
+const legend = L.control({position:'bottomright'});
+legend.onAdd = function(){
+  const div = L.DomUtil.create('div','legend');
 
-async function loadHistory() {
+  div.innerHTML =
+    "<b>Legend</b><br>" +
+    "<i style='background:green;border-radius:50%;'></i> SAFE<br>" +
+    "<i style='background:red;border-radius:50%;'></i> CRITICAL<br>" +
+    "<i style='background:yellow;border:1px solid black;'></i> STATION";
 
-  try {
+  return div;
+};
+legend.addTo(map);
+
+/* ================= CRITICAL LIST ================= */
+
+const criticalControl = L.control({position:'topleft'});
+criticalControl.onAdd = function(){
+  const div = L.DomUtil.create('div','critical-box');
+  div.innerHTML =
+    "<b>Critical Culverts</b><br>" +
+    "<div id='criticalList'>Loading...</div>";
+  return div;
+};
+criticalControl.addTo(map);
+
+/* ================= LOAD STATIONS ================= */
+
+async function loadStations(){
+
+  const res = await fetch(
+    'dashboard_data/stations.json?v=' + new Date().getTime()
+  );
+  const json = await res.json();
+
+  stationLayer.clearLayers();
+
+  json.forEach(st => {
+
+    const lat = parseFloat(st.lat);
+    const lon = parseFloat(st.lon);
+
+    if(isNaN(lat) || isNaN(lon)) return;
+
+    L.marker([lat,lon],{
+      icon: L.divIcon({
+        className:'',
+        html:'<div style="background:yellow;width:12px;height:12px;border:1px solid black;"></div>',
+        iconSize:[12,12]
+      })
+    })
+    .bindPopup("<b>Station:</b> "+st.station)
+    .addTo(stationLayer);
+
+  });
+
+}
+
+/* ================= LOAD LATEST ================= */
+
+async function loadLatest(){
+
+  try{
 
     const response = await fetch(
-      'dashboard_data/culvert_history.json?v=' + new Date().getTime()
+      'dashboard_data/culvert_latest.json?v=' + new Date().getTime()
     );
 
     const json = await response.json();
 
-    if (!Array.isArray(json)) {
-      console.error("History bukan array!");
-      return;
-    }
+    culvertLayer.clearLayers();
 
-    historyData = json;
+    document.getElementById("lastUpdate").innerHTML =
+      "Last Update: " + json.meta.last_update;
 
-    if (historyData.length === 0) return;
+    let criticalHTML = "";
+    let bounds = [];
 
-    const slider = document.getElementById("timeSlider");
+    json.data.forEach(item => {
 
-    slider.max = historyData.length - 1;
-    slider.value = historyData.length - 1;
+      const lat = parseFloat(item.lat);
+      const lon = parseFloat(item.lon);
 
-    slider.oninput = function() {
-      renderSnapshot(parseInt(this.value));
-    };
+      if(isNaN(lat) || isNaN(lon)) return;
 
-    renderSnapshot(historyData.length - 1);
+      bounds.push([lat,lon]);
 
-  } catch (err) {
-    console.error("Load history error:", err);
-  }
-}
+      const isCritical = item.status === "OVER";
 
-/* ================= RENDER SNAPSHOT ================= */
+      const marker = L.circleMarker([lat,lon],{
+        radius:8,
+        fillColor: isCritical ? "red" : "green",
+        color:"#000",
+        weight:1,
+        fillOpacity:0.9
+      }).addTo(culvertLayer);
 
-function renderSnapshot(index) {
+      marker.bindPopup(
+        "<b>Culvert:</b> "+item.culvert_id+"<br>"+
+        "<b>Station:</b> "+(item.station || "-")+"<br>"+
+        "<b>Status:</b> "+item.status+"<br>"+
+        "<b>Rainfall:</b> "+item.rainfall_mm+" mm<br>"+
+        "<b>Capacity:</b> "+item.capacity+" mm"
+      );
 
-  culvertLayer.clearLayers();
-
-  if (!historyData[index]) return;
-
-  const snapshot = historyData[index];
-
-  document.getElementById("lastUpdate").innerHTML =
-    "Snapshot Time: " + snapshot.timestamp;
-
-  document.getElementById("timeLabel").innerText =
-    snapshot.timestamp;
-
-  let criticalHTML = "";
-  let bounds = [];
-
-  if (!snapshot.culverts || !Array.isArray(snapshot.culverts)) {
-    console.error("Field culverts tidak ditemukan!");
-    return;
-  }
-
-  snapshot.culverts.forEach(item => {
-
-    const lat = parseFloat(item.lat);
-    const lon = parseFloat(item.lon);
-
-    if (isNaN(lat) || isNaN(lon)) return;
-
-    bounds.push([lat, lon]);
-
-    const isOver = item.status === "OVER";
-
-    const marker = L.circleMarker([lat, lon], {
-      radius: 8,
-      fillColor: isOver ? "red" : "green",
-      color: "#000",
-      weight: 1,
-      fillOpacity: 0.9
-    }).addTo(culvertLayer);
-
-    marker.bindPopup(
-      "<b>Culvert:</b> " + item.culvert_id + "<br>" +
-      "<b>Station:</b> " + (item.station || "-") + "<br>" +
-      "<b>Status:</b> " + item.status + "<br>" +
-      "<b>Rainfall:</b> " + item.rainfall_mm + " mm<br>" +
-      "<b>Capacity:</b> " + item.capacity + " mm"
-    );
-
-    if (isOver) {
-      criticalHTML +=
-        '<div class="critical-item">' +
-        '<b>' + item.culvert_id + '</b><br>' +
-        'Rainfall: ' + item.rainfall_mm + ' mm' +
-        '</div>';
-    }
-
-  });
-
-  document.getElementById("criticalList").innerHTML =
-    criticalHTML || "No critical culvert";
-
-  if (bounds.length > 0) {
-    map.fitBounds(bounds, { padding: [50,50] });
-  }
-}
-
-/* ================= LOAD STATIONS ================= */
-
-async function loadStations() {
-
-  try {
-
-    const response = await fetch(
-      'data/seed/loc_stations.csv?v=' + new Date().getTime()
-    );
-
-    const csvText = await response.text();
-    stationLayer.clearLayers();
-
-    const rows = csvText.trim().split("\n");
-
-    rows.slice(1).forEach(row => {
-
-      if (!row) return;
-
-      const cols = row.includes(",") ? row.split(",") : row.split("\t");
-
-      const station = cols[1]?.trim();
-      const lat = parseFloat(cols[2]?.trim());
-      const lon = parseFloat(cols[3]?.trim());
-      const active = cols[4]?.trim();
-
-      if (active === "1" && !isNaN(lat) && !isNaN(lon)) {
-
-        const stationIcon = L.divIcon({
-          className: '',
-          html: `
-            <div style="
-              width:16px;
-              height:16px;
-              background:yellow;
-              border:2px solid black;
-            "></div>
-          `,
-          iconSize: [16,16],
-          iconAnchor: [8,8]
-        });
-
-        L.marker([lat, lon], { icon: stationIcon })
-          .addTo(stationLayer)
-          .bindPopup("<b>Station:</b> " + station);
+      if(isCritical){
+        criticalHTML +=
+          "<div style='margin-bottom:6px;'>" +
+          "<b>"+item.culvert_id+"</b><br>" +
+          "Rainfall: "+item.rainfall_mm+" mm" +
+          "</div>";
       }
 
     });
 
-  } catch (err) {
-    console.error("Station load error:", err);
+    document.getElementById("criticalList").innerHTML =
+      criticalHTML || "No critical culvert";
+
+    if(bounds.length>0){
+      map.fitBounds(bounds,{padding:[50,50]});
+    }
+
+  }catch(err){
+    console.error("Load latest error:",err);
   }
 }
 
 /* ================= INIT ================= */
 
-async function init() {
-  await loadHistory();
+async function init(){
   await loadStations();
+  await loadLatest();
 }
 
 init();
 
+/* AUTO REFRESH 3 MENIT */
+setInterval(loadLatest, 180000);
+
 </script>
+</body>
+</html>
