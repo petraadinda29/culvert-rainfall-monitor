@@ -1,234 +1,150 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<title>Culvert Rainfall Monitor</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet"
- href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<style>
-html, body {
-  margin:0;
-  padding:0;
-  height:100%;
-}
-
-#map {
-  width:100%;
-  height:100%;
-}
-
-.legend {
-  background:white;
-  padding:10px;
-  line-height:1.6;
-  font-size:13px;
-  border-radius:6px;
-}
-
-.legend i {
-  width:14px;
-  height:14px;
-  float:left;
-  margin-right:8px;
-  opacity:0.9;
-}
-
-.critical-box {
-  background:white;
-  padding:10px;
-  max-height:200px;
-  overflow:auto;
-  font-size:12px;
-  border-radius:6px;
-}
-
-.header-box {
-  background:white;
-  padding:8px;
-  font-size:13px;
-  border-radius:6px;
-}
-</style>
-</head>
-
-<body>
-
-<div id="map"></div>
-
 <script>
+let map;
+let culvertLayer = L.layerGroup();
+let stationLayer = L.layerGroup();
 
-/* ================= MAP INIT ================= */
+const REFRESH_INTERVAL = 180000; // 3 menit
 
-const map = L.map('map').setView([-2.18,115.57], 11);
+// =======================
+// INIT MAP
+// =======================
+function initMap() {
+    map = L.map('map').setView([-2.18, 115.56], 12);
 
-L.tileLayer(
- 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
- {
-   attribution:'© OpenStreetMap contributors'
- }).addTo(map);
+    // SATELLITE BASEMAP (tetap seperti sebelumnya)
+    L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {
+            attribution: 'Tiles © Esri'
+        }
+    ).addTo(map);
 
-const stationLayer = L.layerGroup().addTo(map);
-const culvertLayer = L.layerGroup().addTo(map);
-
-/* ================= HEADER ================= */
-
-const headerBox = L.control({position:'topright'});
-headerBox.onAdd = function(){
-  const div = L.DomUtil.create('div','header-box');
-  div.innerHTML =
-    "<b>Culvert Rainfall Monitor</b><br>" +
-    "<span id='lastUpdate'>Loading...</span>";
-  return div;
-};
-headerBox.addTo(map);
-
-/* ================= LEGEND ================= */
-
-const legend = L.control({position:'bottomright'});
-legend.onAdd = function(){
-  const div = L.DomUtil.create('div','legend');
-
-  div.innerHTML =
-    "<b>Legend</b><br>" +
-    "<i style='background:green;border-radius:50%;'></i> SAFE<br>" +
-    "<i style='background:red;border-radius:50%;'></i> CRITICAL<br>" +
-    "<i style='background:yellow;border:1px solid black;'></i> STATION";
-
-  return div;
-};
-legend.addTo(map);
-
-/* ================= CRITICAL LIST ================= */
-
-const criticalControl = L.control({position:'topleft'});
-criticalControl.onAdd = function(){
-  const div = L.DomUtil.create('div','critical-box');
-  div.innerHTML =
-    "<b>Critical Culverts</b><br>" +
-    "<div id='criticalList'>Loading...</div>";
-  return div;
-};
-criticalControl.addTo(map);
-
-/* ================= LOAD STATIONS ================= */
-
-async function loadStations(){
-
-  const res = await fetch(
-    'dashboard_data/stations.json?v=' + new Date().getTime()
-  );
-  const json = await res.json();
-
-  stationLayer.clearLayers();
-
-  json.forEach(st => {
-
-    const lat = parseFloat(st.lat);
-    const lon = parseFloat(st.lon);
-
-    if(isNaN(lat) || isNaN(lon)) return;
-
-    L.marker([lat,lon],{
-      icon: L.divIcon({
-        className:'',
-        html:'<div style="background:yellow;width:12px;height:12px;border:1px solid black;"></div>',
-        iconSize:[12,12]
-      })
-    })
-    .bindPopup("<b>Station:</b> "+st.station)
-    .addTo(stationLayer);
-
-  });
-
+    culvertLayer.addTo(map);
+    stationLayer.addTo(map);
 }
 
-/* ================= LOAD LATEST ================= */
+// =======================
+// LOAD STATION
+// =======================
+async function loadStations() {
+    const response = await fetch('stations.json');
+    const stations = await response.json();
 
-async function loadLatest(){
+    stationLayer.clearLayers();
 
-  try{
+    stations.forEach(st => {
+        if (st.lat && st.lon) {
+            L.circleMarker([st.lat, st.lon], {
+                radius: 6,
+                color: "#00FFFF",
+                fillOpacity: 0.8
+            })
+            .bindPopup(`<b>${st.station}</b>`)
+            .addTo(stationLayer);
+        }
+    });
+}
 
-    const response = await fetch(
-      'dashboard_data/culvert_latest.json?v=' + new Date().getTime()
-    );
+// =======================
+// LOAD DATA TERKINI
+// =======================
+async function loadLatest() {
+    try {
+        const response = await fetch('culvert_latest.json?' + new Date().getTime());
+        const data = await response.json();
 
-    const json = await response.json();
+        renderLatest(data);
+        updateTimestamp(data.timestamp);
+
+    } catch (error) {
+        console.error("Error loading latest data:", error);
+    }
+}
+
+// =======================
+// RENDER DATA TERKINI
+// =======================
+function renderLatest(data) {
 
     culvertLayer.clearLayers();
 
-    document.getElementById("lastUpdate").innerHTML =
-      "Last Update: " + json.meta.last_update;
+    let criticalList = [];
 
-    let criticalHTML = "";
-    let bounds = [];
+    data.culverts.forEach(culvert => {
 
-    json.data.forEach(item => {
+        if (!culvert.lat || !culvert.lon) return;
 
-      const lat = parseFloat(item.lat);
-      const lon = parseFloat(item.lon);
+        let color = "green";
+        if (culvert.status === "CRITICAL") color = "red";
+        if (culvert.status === "WARNING") color = "orange";
 
-      if(isNaN(lat) || isNaN(lon)) return;
+        if (culvert.status === "CRITICAL") {
+            criticalList.push(culvert.culvert_id);
+        }
 
-      bounds.push([lat,lon]);
-
-      const isCritical = item.status === "OVER";
-
-      const marker = L.circleMarker([lat,lon],{
-        radius:8,
-        fillColor: isCritical ? "red" : "green",
-        color:"#000",
-        weight:1,
-        fillOpacity:0.9
-      }).addTo(culvertLayer);
-
-      marker.bindPopup(
-        "<b>Culvert:</b> "+item.culvert_id+"<br>"+
-        "<b>Station:</b> "+(item.station || "-")+"<br>"+
-        "<b>Status:</b> "+item.status+"<br>"+
-        "<b>Rainfall:</b> "+item.rainfall_mm+" mm<br>"+
-        "<b>Capacity:</b> "+item.capacity+" mm"
-      );
-
-      if(isCritical){
-        criticalHTML +=
-          "<div style='margin-bottom:6px;'>" +
-          "<b>"+item.culvert_id+"</b><br>" +
-          "Rainfall: "+item.rainfall_mm+" mm" +
-          "</div>";
-      }
+        L.circleMarker([culvert.lat, culvert.lon], {
+            radius: 8,
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.9
+        })
+        .bindPopup(`
+            <b>${culvert.culvert_id}</b><br>
+            Station: ${culvert.station}<br>
+            Status: <b>${culvert.status}</b><br>
+            Capacity: ${culvert.capacity ?? '-'}<br>
+            Rainfall: ${culvert.rainfall_mm ?? '-'} mm
+        `)
+        .addTo(culvertLayer);
 
     });
 
-    document.getElementById("criticalList").innerHTML =
-      criticalHTML || "No critical culvert";
-
-    if(bounds.length>0){
-      map.fitBounds(bounds,{padding:[50,50]});
-    }
-
-  }catch(err){
-    console.error("Load latest error:",err);
-  }
+    updateCriticalList(criticalList);
 }
 
-/* ================= INIT ================= */
+// =======================
+// UPDATE CRITICAL LIST
+// =======================
+function updateCriticalList(list) {
 
-async function init(){
-  await loadStations();
-  await loadLatest();
+    const container = document.getElementById("criticalList");
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+        container.innerHTML = "<span style='color:lime;'>No Critical Culvert</span>";
+        return;
+    }
+
+    list.forEach(id => {
+        const item = document.createElement("div");
+        item.style.color = "red";
+        item.innerHTML = "• " + id;
+        container.appendChild(item);
+    });
+}
+
+// =======================
+// UPDATE TIMESTAMP
+// =======================
+function updateTimestamp(ts) {
+    const el = document.getElementById("lastUpdate");
+    if (el) {
+        el.innerHTML = "Last Update: " + new Date(ts).toLocaleString();
+    }
+}
+
+// =======================
+// INIT
+// =======================
+async function init() {
+    initMap();
+    await loadStations();
+    await loadLatest();
 }
 
 init();
 
-/* AUTO REFRESH 3 MENIT */
-setInterval(loadLatest, 180000);
+// AUTO REFRESH 3 MENIT
+setInterval(loadLatest, REFRESH_INTERVAL);
 
 </script>
-</body>
-</html>
