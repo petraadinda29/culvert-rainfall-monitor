@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <title>Culvert Rainfall Monitor</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet"
@@ -23,12 +22,12 @@ html, body {
   height:100%;
 }
 
-.legend {
+.legend, .critical-box, .header-box {
   background:white;
   padding:10px;
-  line-height:1.6;
   font-size:13px;
   border-radius:6px;
+  box-shadow:0 0 6px rgba(0,0,0,0.3);
 }
 
 .legend i {
@@ -38,27 +37,10 @@ html, body {
   margin-right:8px;
   opacity:0.9;
 }
-
-.critical-box {
-  background:white;
-  padding:10px;
-  max-height:200px;
-  overflow:auto;
-  font-size:12px;
-  border-radius:6px;
-}
-
-.header-box {
-  background:white;
-  padding:8px;
-  font-size:13px;
-  border-radius:6px;
-}
 </style>
 </head>
 
 <body>
-
 <div id="map"></div>
 
 <script>
@@ -74,47 +56,100 @@ const REFRESH_INTERVAL = 180000; // 3 menit
 function initMap() {
     map = L.map('map').setView([-2.18, 115.56], 12);
 
-    // SATELLITE BASEMAP (tetap seperti sebelumnya)
     L.tileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        {
-            attribution: 'Tiles © Esri'
-        }
+        { attribution: 'Tiles © Esri' }
     ).addTo(map);
 
     culvertLayer.addTo(map);
     stationLayer.addTo(map);
+
+    addUIControls();
+}
+
+// =======================
+// UI BOXES
+// =======================
+function addUIControls() {
+
+    // HEADER
+    const header = L.control({position: "topright"});
+    header.onAdd = function() {
+        const div = L.DomUtil.create("div", "header-box");
+        div.innerHTML = `
+            <b>Culvert Rainfall Monitor</b><br>
+            <span id="lastUpdate">Last Update: -</span>
+        `;
+        return div;
+    };
+    header.addTo(map);
+
+    // LEGEND
+    const legend = L.control({position: "bottomleft"});
+    legend.onAdd = function() {
+        const div = L.DomUtil.create("div", "legend");
+        div.innerHTML = `
+            <b>Status Legend</b><br><br>
+            <i style="background:green"></i> SAFE<br>
+            <i style="background:orange"></i> WARNING<br>
+            <i style="background:red"></i> CRITICAL
+        `;
+        return div;
+    };
+    legend.addTo(map);
+
+    // CRITICAL LIST
+    const critical = L.control({position: "bottomright"});
+    critical.onAdd = function() {
+        const div = L.DomUtil.create("div", "critical-box");
+        div.innerHTML = `
+            <b>Critical Culvert</b><br><br>
+            <div id="criticalList"></div>
+        `;
+        return div;
+    };
+    critical.addTo(map);
 }
 
 // =======================
 // LOAD STATION
 // =======================
 async function loadStations() {
-    const response = await fetch('stations.json');
-    const stations = await response.json();
+    try {
+        const response = await fetch('stations.json');
+        const stations = await response.json();
 
-    stationLayer.clearLayers();
+        stationLayer.clearLayers();
 
-    stations.forEach(st => {
-        if (st.lat && st.lon) {
-            L.circleMarker([st.lat, st.lon], {
-                radius: 6,
-                color: "#00FFFF",
-                fillOpacity: 0.8
-            })
-            .bindPopup(`<b>${st.station}</b>`)
-            .addTo(stationLayer);
-        }
-    });
+        stations.forEach(st => {
+            if (st.lat && st.lon) {
+                L.circleMarker([st.lat, st.lon], {
+                    radius: 6,
+                    color: "#00FFFF",
+                    fillOpacity: 0.8
+                })
+                .bindPopup(`<b>${st.station}</b>`)
+                .addTo(stationLayer);
+            }
+        });
+
+    } catch (err) {
+        console.error("Station load error:", err);
+    }
 }
 
 // =======================
-// LOAD DATA TERKINI
+// LOAD LATEST DATA
 // =======================
 async function loadLatest() {
     try {
         const response = await fetch('culvert_latest.json?' + new Date().getTime());
         const data = await response.json();
+
+        if (!data || !data.culverts) {
+            console.error("Invalid JSON structure");
+            return;
+        }
 
         renderLatest(data);
         updateTimestamp(data.timestamp);
@@ -125,12 +160,11 @@ async function loadLatest() {
 }
 
 // =======================
-// RENDER DATA TERKINI
+// RENDER
 // =======================
 function renderLatest(data) {
 
     culvertLayer.clearLayers();
-
     let criticalList = [];
 
     data.culverts.forEach(culvert => {
@@ -171,10 +205,12 @@ function renderLatest(data) {
 function updateCriticalList(list) {
 
     const container = document.getElementById("criticalList");
+    if (!container) return;
+
     container.innerHTML = "";
 
     if (list.length === 0) {
-        container.innerHTML = "<span style='color:lime;'>No Critical Culvert</span>";
+        container.innerHTML = "<span style='color:green;'>No Critical Culvert</span>";
         return;
     }
 
@@ -191,9 +227,9 @@ function updateCriticalList(list) {
 // =======================
 function updateTimestamp(ts) {
     const el = document.getElementById("lastUpdate");
-    if (el) {
-        el.innerHTML = "Last Update: " + new Date(ts).toLocaleString();
-    }
+    if (!el) return;
+
+    el.innerHTML = "Last Update: " + new Date(ts).toLocaleString();
 }
 
 // =======================
@@ -207,7 +243,9 @@ async function init() {
 
 init();
 
-// AUTO REFRESH 3 MENIT
+// AUTO REFRESH
 setInterval(loadLatest, REFRESH_INTERVAL);
 
 </script>
+</body>
+</html>
