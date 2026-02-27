@@ -18,7 +18,6 @@ OUTPUT_FILE = os.path.join(DASHBOARD_DIR, "culvert_latest.json")
 HISTORY_FILE = os.path.join(DASHBOARD_DIR, "culvert_history.json")
 
 LOCAL_TZ = timezone(timedelta(hours=8))
-MIN_UPDATE_INTERVAL = timedelta(minutes=3)
 
 os.makedirs(DASHBOARD_DIR, exist_ok=True)
 
@@ -38,28 +37,11 @@ def get_latest_status_file():
 
     return os.path.join(STATUS_DIR, sorted(files)[-1])
 
-
-def should_update():
-    if not os.path.exists(OUTPUT_FILE):
-        return True
-
-    last_modified = datetime.fromtimestamp(
-        os.path.getmtime(OUTPUT_FILE),
-        tz=LOCAL_TZ
-    )
-
-    return datetime.now(LOCAL_TZ) - last_modified >= MIN_UPDATE_INTERVAL
-
-
 # ==============================
 # MAIN PROCESS
 # ==============================
 
 def main():
-
-    if not should_update() and "force" not in sys.argv:
-        print("[SKIP] Dashboard update < 3 minutes")
-        return
 
     print("[INFO] Generating dashboard data...")
 
@@ -146,14 +128,12 @@ def main():
         })
 
     output = {
-        "meta": {
-            "last_update": datetime.now(LOCAL_TZ).isoformat(),
-            "timezone": "UTC+8",
-            "total_culvert": len(features),
-            "over": over_count,
-            "safe": safe_count
-        },
-        "data": features
+        "timestamp": datetime.now(LOCAL_TZ).isoformat(),
+        "timezone": "UTC+8",
+        "total_culvert": len(features),
+        "over": over_count,
+        "safe": safe_count,
+        "culverts": features
     }
 
     # Save JSON
@@ -198,14 +178,12 @@ def main():
 import sys
 
 if __name__ == "__main__":
+
     force = False
 
     if len(sys.argv) > 1 and sys.argv[1] == "force":
         force = True
+        print("[FORCE] Manual run")
 
-    if force:
-        print("[FORCE] Manual run - skipping interval check")
-        main()
-    else:
-        main()
+    main()
 
