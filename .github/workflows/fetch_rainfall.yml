@@ -83,5 +83,5 @@ jobs:
           git config user.email "github-actions@github.com"
           
           git add -A
-          git commit -m "Auto update rainfall, culvert status & dashboard data" || echo "No changes to commit"
+          git commit -m "Auto update $(date +'%Y-%m-%d %H:%M:%S')" --allow-empty
           git push
