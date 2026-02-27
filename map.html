@@ -173,12 +173,17 @@ async function loadCulvertData() {
 
     let criticalHTML = "";
 
-    if (json.meta?.last_update) {
+    if (json.timestamp) {
       document.getElementById("lastUpdate").innerHTML =
-        "Last Update: " + json.meta.last_update;
+        "Last Update: " + json.timestamp;
     }
 
-    json.data.forEach(item => {
+    if (!json.culverts) {
+      console.error("culverts field missing:", json);
+      return;
+    }
+
+    json.culverts.forEach(item => {
 
       const lat = parseFloat(item.lat);
       const lon = parseFloat(item.lon);
