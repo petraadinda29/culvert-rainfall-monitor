@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-15T22:45:55.346639+08:00",
+  "timestamp": "2026-03-15T23:03:50.920856+08:00",
   "timezone": "UTC+8",
   "total_culvert": 83,
   "over": 0,
@@ -13,7 +13,7 @@
       "rainfall_mm": 0.0,
       "capacity": 19.31,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:00+08:00"
+      "timestamp": "2026-03-16T07:03:00+08:00"
     },
     {
       "culvert_id": "BDG.03",
@@ -23,7 +23,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.73,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:00+08:00"
+      "timestamp": "2026-03-16T07:03:00+08:00"
     },
     {
       "culvert_id": "BDG.04",
@@ -33,7 +33,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.07,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:00+08:00"
+      "timestamp": "2026-03-16T07:03:00+08:00"
     },
     {
       "culvert_id": "LPG.06",
@@ -43,7 +43,7 @@
       "rainfall_mm": 0.0,
       "capacity": 6.69,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MDN.01",
@@ -53,7 +53,7 @@
       "rainfall_mm": 0.0,
       "capacity": 3.37,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "LPG.07",
@@ -63,7 +63,7 @@
       "rainfall_mm": 0.0,
       "capacity": 12.92,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "LPG.03",
@@ -73,7 +73,7 @@
       "rainfall_mm": 0.0,
       "capacity": 6.96,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JMB.04",
@@ -83,7 +83,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.77,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "LPG.01",
@@ -93,7 +93,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.05,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "LHT.01",
@@ -103,7 +103,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.84,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "KRC.03",
@@ -113,7 +113,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.31,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MDN.02",
@@ -123,7 +123,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.53,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "LPG.02",
@@ -133,7 +133,7 @@
       "rainfall_mm": 0.0,
       "capacity": 12.03,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MDN.03",
@@ -143,7 +143,7 @@
       "rainfall_mm": 0.0,
       "capacity": 7.25,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "NIS.02",
@@ -153,7 +153,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.86,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MIA.01",
@@ -163,7 +163,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.22,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MIA.02",
@@ -173,7 +173,7 @@
       "rainfall_mm": 0.0,
       "capacity": 17.59,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MIA.03",
@@ -183,7 +183,7 @@
       "rainfall_mm": 0.0,
       "capacity": 4.28,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MIA.05",
@@ -193,7 +193,7 @@
       "rainfall_mm": 0.0,
       "capacity": 20.96,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MIA.06",
@@ -203,7 +203,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.16,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "NIS.01",
@@ -213,7 +213,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.57,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JMB.03",
@@ -223,7 +223,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.02,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "NIS.03",
@@ -233,7 +233,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.03,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "PDG.01",
@@ -243,7 +243,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.52,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "PLB.01",
@@ -253,7 +253,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.87,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "PLB.02",
@@ -263,7 +263,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.84,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MDN.04",
@@ -273,7 +273,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.95,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JMB.01",
@@ -283,7 +283,7 @@
       "rainfall_mm": 0.0,
       "capacity": 3.07,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.06",
@@ -293,7 +293,7 @@
       "rainfall_mm": 0.0,
       "capacity": 7.45,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.07",
@@ -303,7 +303,7 @@
       "rainfall_mm": 0.0,
       "capacity": 11.55,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BDG.05",
@@ -313,7 +313,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.1,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BGR.01",
@@ -323,7 +323,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.34,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.08",
@@ -333,7 +333,7 @@
       "rainfall_mm": 0.0,
       "capacity": 4.26,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BKL.01",
@@ -343,7 +343,7 @@
       "rainfall_mm": 0.0,
       "capacity": 58.33,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BKL.02",
@@ -353,7 +353,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.72,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BNE.02",
@@ -363,7 +363,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.52,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BNE.03",
@@ -373,7 +373,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.63,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "BNE.04",
@@ -383,7 +383,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.55,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "SBG.06",
@@ -393,7 +393,7 @@
       "rainfall_mm": 0.0,
       "capacity": 14.52,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "PLB.04",
@@ -403,7 +403,7 @@
       "rainfall_mm": 0.0,
       "capacity": 13.62,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "PLB.03",
@@ -413,7 +413,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.0,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.01",
@@ -423,7 +423,7 @@
       "rainfall_mm": 0.0,
       "capacity": 25.36,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.02",
@@ -433,7 +433,7 @@
       "rainfall_mm": 0.0,
       "capacity": 7.78,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.03",
@@ -443,7 +443,7 @@
       "rainfall_mm": 0.0,
       "capacity": 4.16,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.04",
@@ -453,7 +453,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.17,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "JKT.05",
@@ -463,7 +463,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.68,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:45:47+08:00"
+      "timestamp": "2026-03-16T07:03:43+08:00"
     },
     {
       "culvert_id": "MKS.02",
@@ -473,7 +473,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.06,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "BJM.01",
@@ -483,7 +483,7 @@
       "rainfall_mm": 0.0,
       "capacity": 3.86,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "MIA.04",
@@ -493,7 +493,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.31,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "AMB.01",
@@ -503,7 +503,7 @@
       "rainfall_mm": 0.0,
       "capacity": 7.46,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "SNT.01",
@@ -513,7 +513,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.34,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "MTM.01",
@@ -523,7 +523,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.64,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "MTP.01",
@@ -533,7 +533,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.01,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:46:00+08:00"
+      "timestamp": "2026-03-16T07:04:00+08:00"
     },
     {
       "culvert_id": "SMB.03",
@@ -543,7 +543,7 @@
       "rainfall_mm": 0.0,
       "capacity": 4.72,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SMB.02",
@@ -553,7 +553,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.63,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.04",
@@ -563,7 +563,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.63,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "PLU.04",
@@ -573,7 +573,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.36,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.08",
@@ -583,7 +583,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.35,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "RIU.04",
@@ -593,7 +593,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.51,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.05",
@@ -603,7 +603,7 @@
       "rainfall_mm": 0.0,
       "capacity": 21.21,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.02",
@@ -613,7 +613,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.91,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SGT.02",
@@ -623,7 +623,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.19,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.03",
@@ -633,7 +633,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.65,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.10",
@@ -643,7 +643,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.05,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "RIU.02",
@@ -653,7 +653,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.61,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "SBG.11",
@@ -663,7 +663,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.75,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "KRC.05",
@@ -673,7 +673,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.93,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "MRK.01",
@@ -683,7 +683,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.65,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "MND.02",
@@ -693,7 +693,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.49,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "MKS.01",
@@ -703,7 +703,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.72,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "KRC.07",
@@ -713,7 +713,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.15,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "KRC.02",
@@ -723,7 +723,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.04,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "FLR.02",
@@ -733,7 +733,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.75,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BTG.04",
@@ -743,7 +743,7 @@
       "rainfall_mm": 0.0,
       "capacity": 175.0,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BTG.03",
@@ -753,7 +753,7 @@
       "rainfall_mm": 0.0,
       "capacity": 9.36,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BNY.03",
@@ -763,7 +763,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.97,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BJM.02",
@@ -773,7 +773,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.68,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BJB.03",
@@ -783,7 +783,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.34,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BGK.02",
@@ -793,7 +793,7 @@
       "rainfall_mm": 0.0,
       "capacity": 18.92,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "BGK.01",
@@ -803,7 +803,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.59,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "TJG.01",
@@ -813,7 +813,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.99,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "MTR.01",
@@ -823,7 +823,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.67,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     },
     {
       "culvert_id": "TJG.02",
@@ -833,7 +833,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.65,
       "status": "SAFE",
-      "timestamp": "2026-03-16T06:47:00+08:00"
+      "timestamp": "2026-03-16T07:05:00+08:00"
     }
   ]
 }
