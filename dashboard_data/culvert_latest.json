@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-07T19:25:14.647279+08:00",
+  "timestamp": "2026-08-07T20:06:13.106395+08:00",
   "timezone": "UTC+8",
   "total_culvert": 66,
   "over": 0,
@@ -13,7 +13,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.07,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:24:00+08:00"
+      "timestamp": "2026-08-08T04:05:00+08:00"
     },
     {
       "culvert_id": "BDG.03",
@@ -23,7 +23,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.73,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:24:00+08:00"
+      "timestamp": "2026-08-08T04:05:00+08:00"
     },
     {
       "culvert_id": "BDG.02",
@@ -33,207 +33,7 @@
       "rainfall_mm": 0.0,
       "capacity": 19.31,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:24:00+08:00"
-    },
-    {
-      "culvert_id": "SMB.03",
-      "station": "CSA BONTANG SIS",
-      "lat": -2.16875426,
-      "lon": 115.5900787,
-      "rainfall_mm": 0.0,
-      "capacity": 4.72,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SNT.01",
-      "station": "PITSTOP AMBON SIS",
-      "lat": -2.20397597,
-      "lon": 115.5370516,
-      "rainfall_mm": 0.0,
-      "capacity": 1.34,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "MKS.02",
-      "station": "PITSTOP AMBON SIS",
-      "lat": -2.20141145,
-      "lon": 115.5615255,
-      "rainfall_mm": 0.0,
-      "capacity": 1.06,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "MND.02",
-      "station": "CSA BONTANG SIS",
-      "lat": -2.17409362,
-      "lon": 115.5935268,
-      "rainfall_mm": 0.0,
-      "capacity": 2.49,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "MRK.01",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.13587903,
-      "lon": 115.5879312,
-      "rainfall_mm": 0.0,
-      "capacity": 1.65,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "MTM.01",
-      "station": "PITSTOP AMBON SIS",
-      "lat": -2.1935729,
-      "lon": 115.5474031,
-      "rainfall_mm": 0.0,
-      "capacity": 1.64,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "MTP.01",
-      "station": "PITSTOP AMBON SIS",
-      "lat": -2.20038066,
-      "lon": 115.565237,
-      "rainfall_mm": 0.0,
-      "capacity": 1.01,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "MTR.01",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.13613592,
-      "lon": 115.5929082,
-      "rainfall_mm": 0.0,
-      "capacity": 1.67,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "PLU.04",
-      "station": "CSA BONTANG SIS",
-      "lat": -2.19529989,
-      "lon": 115.5785693,
-      "rainfall_mm": 0.0,
-      "capacity": 2.36,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "RIU.02",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.14313411,
-      "lon": 115.5962358,
-      "rainfall_mm": 0.0,
-      "capacity": 0.61,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "RIU.04",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.14328079,
-      "lon": 115.5952486,
-      "rainfall_mm": 0.0,
-      "capacity": 0.51,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.02",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.13793017,
-      "lon": 115.5994092,
-      "rainfall_mm": 0.0,
-      "capacity": 1.91,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.03",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.13579482,
-      "lon": 115.5964342,
-      "rainfall_mm": 0.0,
-      "capacity": 5.65,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.04",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.13575684,
-      "lon": 115.5798323,
-      "rainfall_mm": 0.0,
-      "capacity": 0.63,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.05",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.13507894,
-      "lon": 115.5817382,
-      "rainfall_mm": 0.0,
-      "capacity": 21.21,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.08",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.15482153,
-      "lon": 115.5924189,
-      "rainfall_mm": 0.0,
-      "capacity": 1.35,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.10",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.14284933,
-      "lon": 115.5987679,
-      "rainfall_mm": 0.0,
-      "capacity": 2.05,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SBG.11",
-      "station": "VP SABANG TIMUR SIS",
-      "lat": -2.14369443,
-      "lon": 115.597318,
-      "rainfall_mm": 0.0,
-      "capacity": 0.75,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SGT.02",
-      "station": "CSA BONTANG SIS",
-      "lat": -2.19033872,
-      "lon": 115.5832982,
-      "rainfall_mm": 0.0,
-      "capacity": 0.19,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
-    },
-    {
-      "culvert_id": "SMB.02",
-      "station": "CSA BONTANG SIS",
-      "lat": -2.17102984,
-      "lon": 115.5879875,
-      "rainfall_mm": 0.0,
-      "capacity": 2.63,
-      "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:05:00+08:00"
     },
     {
       "culvert_id": "MKS.01",
@@ -243,7 +43,207 @@
       "rainfall_mm": 0.0,
       "capacity": 0.72,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SNT.01",
+      "station": "PITSTOP AMBON SIS",
+      "lat": -2.20397597,
+      "lon": 115.5370516,
+      "rainfall_mm": 0.0,
+      "capacity": 1.34,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "MKS.02",
+      "station": "PITSTOP AMBON SIS",
+      "lat": -2.20141145,
+      "lon": 115.5615255,
+      "rainfall_mm": 0.0,
+      "capacity": 1.06,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "MND.02",
+      "station": "CSA BONTANG SIS",
+      "lat": -2.17409362,
+      "lon": 115.5935268,
+      "rainfall_mm": 0.0,
+      "capacity": 2.49,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "MRK.01",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.13587903,
+      "lon": 115.5879312,
+      "rainfall_mm": 0.0,
+      "capacity": 1.65,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "MTM.01",
+      "station": "PITSTOP AMBON SIS",
+      "lat": -2.1935729,
+      "lon": 115.5474031,
+      "rainfall_mm": 0.0,
+      "capacity": 1.64,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "MTP.01",
+      "station": "PITSTOP AMBON SIS",
+      "lat": -2.20038066,
+      "lon": 115.565237,
+      "rainfall_mm": 0.0,
+      "capacity": 1.01,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "MTR.01",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.13613592,
+      "lon": 115.5929082,
+      "rainfall_mm": 0.0,
+      "capacity": 1.67,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "PLU.04",
+      "station": "CSA BONTANG SIS",
+      "lat": -2.19529989,
+      "lon": 115.5785693,
+      "rainfall_mm": 0.0,
+      "capacity": 2.36,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "RIU.02",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.14313411,
+      "lon": 115.5962358,
+      "rainfall_mm": 0.0,
+      "capacity": 0.61,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "RIU.04",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.14328079,
+      "lon": 115.5952486,
+      "rainfall_mm": 0.0,
+      "capacity": 0.51,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.03",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.13579482,
+      "lon": 115.5964342,
+      "rainfall_mm": 0.0,
+      "capacity": 5.65,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.04",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.13575684,
+      "lon": 115.5798323,
+      "rainfall_mm": 0.0,
+      "capacity": 0.63,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.05",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.13507894,
+      "lon": 115.5817382,
+      "rainfall_mm": 0.0,
+      "capacity": 21.21,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.08",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.15482153,
+      "lon": 115.5924189,
+      "rainfall_mm": 0.0,
+      "capacity": 1.35,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.10",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.14284933,
+      "lon": 115.5987679,
+      "rainfall_mm": 0.0,
+      "capacity": 2.05,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.11",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.14369443,
+      "lon": 115.597318,
+      "rainfall_mm": 0.0,
+      "capacity": 0.75,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SGT.02",
+      "station": "CSA BONTANG SIS",
+      "lat": -2.19033872,
+      "lon": 115.5832982,
+      "rainfall_mm": 0.0,
+      "capacity": 0.19,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SMB.02",
+      "station": "CSA BONTANG SIS",
+      "lat": -2.17102984,
+      "lon": 115.5879875,
+      "rainfall_mm": 0.0,
+      "capacity": 2.63,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SMB.03",
+      "station": "CSA BONTANG SIS",
+      "lat": -2.16875426,
+      "lon": 115.5900787,
+      "rainfall_mm": 0.0,
+      "capacity": 4.72,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
+    },
+    {
+      "culvert_id": "SBG.02",
+      "station": "VP SABANG TIMUR SIS",
+      "lat": -2.13793017,
+      "lon": 115.5994092,
+      "rainfall_mm": 0.0,
+      "capacity": 1.91,
+      "status": "SAFE",
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "MIA.04",
@@ -253,7 +253,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.31,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "KRC.05",
@@ -263,7 +263,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.93,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "TJG.02",
@@ -273,7 +273,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.65,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "TJG.01",
@@ -283,7 +283,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.99,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "AMB.01",
@@ -293,7 +293,7 @@
       "rainfall_mm": 0.0,
       "capacity": 7.46,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BGK.01",
@@ -303,7 +303,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.59,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BGK.02",
@@ -313,7 +313,7 @@
       "rainfall_mm": 0.0,
       "capacity": 18.92,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BJB.03",
@@ -323,7 +323,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.34,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BJM.01",
@@ -333,7 +333,7 @@
       "rainfall_mm": 0.0,
       "capacity": 3.86,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BJM.02",
@@ -343,7 +343,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.68,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BNY.03",
@@ -353,7 +353,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.97,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "KRC.07",
@@ -363,7 +363,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.15,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BTG.03",
@@ -373,7 +373,7 @@
       "rainfall_mm": 0.0,
       "capacity": 9.36,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "KRC.02",
@@ -383,7 +383,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.04,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "FLR.02",
@@ -393,7 +393,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.75,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BTG.04",
@@ -403,7 +403,7 @@
       "rainfall_mm": 0.0,
       "capacity": 175.0,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:00+08:00"
+      "timestamp": "2026-08-08T04:06:00+08:00"
     },
     {
       "culvert_id": "BNE.04",
@@ -413,7 +413,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.55,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "BNE.03",
@@ -423,7 +423,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.63,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "BKL.01",
@@ -433,7 +433,7 @@
       "rainfall_mm": 0.0,
       "capacity": 58.33,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "BKL.02",
@@ -443,7 +443,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.72,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "SBG.06",
@@ -453,7 +453,7 @@
       "rainfall_mm": 0.0,
       "capacity": 14.52,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "BNE.02",
@@ -463,7 +463,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.52,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "PLB.04",
@@ -473,7 +473,7 @@
       "rainfall_mm": 0.0,
       "capacity": 13.62,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "LPG.02",
@@ -483,7 +483,7 @@
       "rainfall_mm": 0.0,
       "capacity": 12.03,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "PLB.02",
@@ -493,7 +493,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.84,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "LPG.03",
@@ -503,7 +503,7 @@
       "rainfall_mm": 0.0,
       "capacity": 6.96,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "LPG.06",
@@ -513,7 +513,7 @@
       "rainfall_mm": 0.0,
       "capacity": 6.69,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "LPG.07",
@@ -523,7 +523,7 @@
       "rainfall_mm": 0.0,
       "capacity": 12.92,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "MDN.01",
@@ -533,7 +533,7 @@
       "rainfall_mm": 0.0,
       "capacity": 3.37,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "MDN.02",
@@ -543,7 +543,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.53,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "MDN.03",
@@ -553,7 +553,7 @@
       "rainfall_mm": 0.0,
       "capacity": 7.25,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "MDN.04",
@@ -563,7 +563,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.95,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "LHT.01",
@@ -573,7 +573,7 @@
       "rainfall_mm": 0.0,
       "capacity": 5.84,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "KRC.03",
@@ -583,7 +583,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.31,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "JMB.03",
@@ -593,7 +593,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.02,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "JMB.01",
@@ -603,7 +603,7 @@
       "rainfall_mm": 0.0,
       "capacity": 3.07,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "NIS.01",
@@ -613,7 +613,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.57,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "NIS.02",
@@ -623,7 +623,7 @@
       "rainfall_mm": 0.0,
       "capacity": 0.86,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "NIS.03",
@@ -633,7 +633,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.03,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "LPG.01",
@@ -643,7 +643,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.05,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "PLB.03",
@@ -653,7 +653,7 @@
       "rainfall_mm": 0.0,
       "capacity": 2.0,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     },
     {
       "culvert_id": "PLB.01",
@@ -663,7 +663,7 @@
       "rainfall_mm": 0.0,
       "capacity": 1.87,
       "status": "SAFE",
-      "timestamp": "2026-08-08T03:25:08+08:00"
+      "timestamp": "2026-08-08T04:06:06+08:00"
     }
   ]
 }
